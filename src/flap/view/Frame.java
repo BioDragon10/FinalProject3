@@ -22,7 +22,8 @@ public class Frame extends JFrame
 		this.setContentPane(panel);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Flap");
-		this.setSize(1200, 800);
+		this.setSize(1200, 825);
+		this.setResizable(false);
 		this.setVisible(true);
 	}
 	
