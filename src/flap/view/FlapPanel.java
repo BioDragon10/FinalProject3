@@ -19,6 +19,7 @@ import flap.controller.Controller;
 public class FlapPanel extends JPanel
 {
 	private Controller app;
+	private MainPanel panel;
 	private BufferedImage canvasImage;
 	
 	private Polygon bird;
@@ -30,8 +31,9 @@ public class FlapPanel extends JPanel
 	
 	private int pipeLayout;
 	
-	public FlapPanel(Controller app)
+	public FlapPanel(Controller app, MainPanel panel)
 	{
+		this.panel = panel;
 		this.app = app;
 		this.pipeLayout = 1;
 		
@@ -62,13 +64,17 @@ public class FlapPanel extends JPanel
 		{
 			public void mouseClicked(MouseEvent click)
 			{
-				bird.translate(0, -10);
-				System.out.println("Click");
-				for (int current : bird.ypoints)
+				if (bird != null)
 				{
-					System.out.println(current);
+					bird.translate(0, -10);
+					System.out.println("Click");
+					for (int current : bird.ypoints)
+					{
+						System.out.println(current);
+					}
+					moveBird();
 				}
-				moveBird();
+				
 			}
 			
 			public void mousePressed(MouseEvent press)
@@ -263,6 +269,8 @@ public class FlapPanel extends JPanel
 				topPipe = drawTopPipe();
 				bottomPipe = drawBottomPipe();
 				pipeLayout = (int) (Math.random() * 5 + 1);
+				panel.addScore();
+				
 			}
 		}
 		
