@@ -14,7 +14,9 @@ public class Bird
 	private int hiddenOperation;
 	private double outputThreshold;
 	
-	private int mutationRate;
+	private double mutationRate;
+	
+	private int birdPosition;
 	
 	public Bird(Controller app)
 	{
@@ -31,12 +33,13 @@ public class Bird
 	{
 		boolean isJump = false;
 		
-		double random = Math.random();
+		int topDistance = birdPosition - topY;
+		int bottomDistance = bottomY - birdPosition;
 		
-		if(random < 0.5)
-		{
-			isJump = true;
-		}
+		double first = firstNode(topDistance, bottomDistance);
+		
+		
+		
 		
 		return isJump;
 	}
@@ -71,19 +74,52 @@ public class Bird
 		return this.outputThreshold;
 	}
 	
+	private boolean coinFlip()
+	{
+		return (int) (Math.random() * 2) == 0;
+	}
+	
 	public void setThresholds(double hidTop, double hidBot, int hidOp, double outThres)
 	{
 		//DO TO: Coinflip for negatives.
-		double mutationBias = (Math.random() * mutationRate);
-		this.hiddenTopBias = hidTop + mutationBias;
-		this.hiddenBottomBias = hidBot - mutationBias;
+		int coinFlip = coinFlip() ? -1 : 1;
+		double mutationBias = (Math.random() / mutationRate);
+		this.hiddenTopBias = (hidTop + (mutationBias * coinFlip));
+		this.hiddenBottomBias = (hidBot + (mutationBias * coinFlip * -1));
 		this.hiddenOperation = hidOp;
 		this.outputThreshold = outThres;
 	}
 	
-	public void setMutationRate(int mutRate)
+	public void setMutationRate(double mutRate)
 	{
 		this.mutationRate = mutRate;
+	}
+	
+	public void setBirdPosition(int pos)
+	{
+		this.birdPosition = pos;
+	}
+	
+	private double firstNode(int top, int bot)
+	{
+		double output = 0;
+		double topIn = top * hiddenTopBias;
+		double bottomIn = bot * hiddenBottomBias;
+		
+		if(this.hiddenOperation == 1)
+		{
+			output = topIn + bottomIn;
+		}
+		if (this.hiddenOperation == 2)
+		{
+			output = topIn - bottomIn;
+		}
+		if (this.hiddenOperation == 3)
+		{
+			output = bottomIn - topIn;
+		}
+		
+		return output / 100;
 	}
 	
 

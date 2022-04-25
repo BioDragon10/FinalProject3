@@ -335,4 +335,15 @@ public class FlapPanel extends JPanel
 		return min;
 	}
 	
+	public int getBirdPosition()
+	{
+		int sum = 0;
+		for (int point : bird.ypoints)
+		{
+			sum += point;
+		}
+		
+		return sum / bird.ypoints.length;
+	}
+	
 }

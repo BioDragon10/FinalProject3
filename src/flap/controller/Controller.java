@@ -14,7 +14,7 @@ public class Controller
 	
 	private Bird bird;
 	
-	private int mutationRate;
+	private double mutationRate;
 	
 	public Controller()
 	{
@@ -23,17 +23,18 @@ public class Controller
 		mainPanel = frame.getPanel();
 		panel = mainPanel.getFlapCanvas();
 		this.birdsAlive = 1;
-		this.mutationRate = 1;
+		this.mutationRate = .99;
 	}
 	
 	public void start()
 	{
 		while(birdsAlive > 0)
 		{
-			bird.setMutationRate(mutationRate);
+			bird.setMutationRate(mutationRate); //:)
 			
 			bird.setTopY(panel.getUpperPipe());
 			bird.setBottomY(panel.getLowerPipe());
+			bird.setBirdPosition(panel.getBirdPosition());
 			
 			if(bird.checkJump())
 			{
