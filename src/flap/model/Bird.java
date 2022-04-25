@@ -112,12 +112,17 @@ public class Bird
 		}
 		if (this.hiddenOperation == 2)
 		{
-			output = topIn - bottomIn;
+			if (topIn > bottomIn)
+			{
+				output = topIn - bottomIn;
+			}
+			else
+			{
+				output = bottomIn - topIn;
+			}
+			
 		}
-		if (this.hiddenOperation == 3)
-		{
-			output = bottomIn - topIn;
-		}
+		
 		
 		return output / 100;
 	}
