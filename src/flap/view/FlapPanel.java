@@ -273,18 +273,33 @@ public class FlapPanel extends JPanel
 				
 			}
 		}
-		
-		if (this.bird != null && bird.intersects(topPipe.getBounds2D()))
+		if (this.bird != null)
 		{
-			this.bird = null;
-			app.birdDies();
+			if (bird.intersects(topPipe.getBounds2D()))
+			{
+				this.bird = null;
+				app.birdDies();
+			}
+			else if (bird.intersects(bottomPipe.getBounds2D()))
+			{
+				this.bird = null;
+				app.birdDies();
+			}
+			else
+			{
+				for (int point : bird.ypoints)
+				{
+					if (point > 800 || point < 0)
+					{
+						System.out.println(point);
+						this.bird = null;
+						app.birdDies();
+					}
+				}
+			}
 		}
 		
-		if (this.bird != null && bird.intersects(bottomPipe.getBounds2D()))
-		{
-			this.bird = null;
-			app.birdDies();
-		}
+		
 		
 		repaint();
 	}
