@@ -133,7 +133,7 @@ public class FlapPanel extends JPanel
 		drawingGraphics.fill(this.bottomPipe);
 	}
 	
-	private void moveBird()
+	public void moveBird()
 	{
 		bird.translate(0, -30);
 		repaint();
