@@ -304,4 +304,35 @@ public class FlapPanel extends JPanel
 		repaint();
 	}
 	
+	public int getUpperPipe()
+	{
+		int max = 0;
+		
+		for (int point : topPipe.ypoints)
+		{
+			if (point > max)
+			{
+				max = point;
+			}
+		}
+		
+		return max;
+	}
+	
+	public int getLowerPipe()
+	{
+		
+		int min = 0;
+		
+		for (int point : bottomPipe.ypoints)
+		{
+			if (point < min)
+			{
+				min = point;
+			}
+		}
+		
+		return min;
+	}
+	
 }
