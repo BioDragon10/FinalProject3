@@ -28,20 +28,28 @@ public class Controller
 	
 	public void start()
 	{
-		while(birdsAlive > 0)
+		while (true)
 		{
-			bird.setMutationRate(mutationRate); //:)
-			
-			bird.setTopY(panel.getUpperPipe());
-			bird.setBottomY(panel.getLowerPipe());
-			bird.setBirdPosition(panel.getBirdPosition());
-			
-			if(bird.checkJump())
+			while(birdsAlive > 0)
 			{
-				birdMove();
+				bird.setMutationRate(mutationRate); //:)
+				
+				bird.setTopY(panel.getUpperPipe());
+				bird.setBottomY(panel.getLowerPipe());
+				bird.setBirdPosition(panel.getBirdPosition());
+				
+				if(bird.checkJump())
+				{
+					birdMove();
+				}
+				panel.move();
+				panel.pause();
 			}
-			panel.move();
-			panel.pause();
+			
+			birdsAlive = 1;
+			
+			panel.reset();
+			
 		}
 	}
 	

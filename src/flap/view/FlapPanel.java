@@ -180,9 +180,8 @@ public class FlapPanel extends JPanel
 		{
 			lengthPoints = 450 + 50;
 		}
-		//int[] xPoints = {800, 800, 790, 790, 910, 910, 900, 900, 800};
+
 		int[] xPoints = {1000, 1000, 990, 990, 1110, 1110, 1100, 1100, 1000};
-		//int[] yPoints = {0, 100, 100, 110, 110, 100, 100, 0, 0};
 		int[] yPoints = {0, lengthPoints, lengthPoints, lengthPoints + 10, lengthPoints + 10, lengthPoints, lengthPoints, 0, 0};
 		
 		
@@ -344,6 +343,19 @@ public class FlapPanel extends JPanel
 		}
 		
 		return sum / bird.ypoints.length;
+	}
+	
+	public void reset()
+	{
+		pipeLayout = 1;
+		
+		this.bird = drawBird();
+		
+		this.topPipe = drawTopPipe();
+		
+		this.bottomPipe = drawBottomPipe();
+		
+		repaint();
 	}
 	
 }

@@ -38,8 +38,7 @@ public class Bird
 		
 		double first = firstNode(topDistance, bottomDistance);
 		
-		
-		
+		isJump = outputNode(first);
 		
 		return isJump;
 	}
@@ -79,15 +78,16 @@ public class Bird
 		return (int) (Math.random() * 2) == 0;
 	}
 	
-	public void setThresholds(double hidTop, double hidBot, int hidOp, double outThres)
+	public void setThresholds(double hidTop, double hidBot, double outThres)
 	{
 		//DO TO: Coinflip for negatives.
 		int coinFlip = coinFlip() ? -1 : 1;
 		double mutationBias = (Math.random() / mutationRate);
 		this.hiddenTopBias = (hidTop + (mutationBias * coinFlip));
 		this.hiddenBottomBias = (hidBot + (mutationBias * coinFlip * -1));
-		this.hiddenOperation = hidOp;
-		this.outputThreshold = outThres;
+		int coinFlip2 = coinFlip() ? 1 : 2;
+		this.hiddenOperation = coinFlip2;
+		this.outputThreshold = outThres + mutationRate;
 	}
 	
 	public void setMutationRate(double mutRate)
@@ -125,6 +125,18 @@ public class Bird
 		
 		
 		return output / 100;
+	}
+	
+	private boolean outputNode(double input)
+	{
+		boolean jump = false;
+		
+		if (input > this.outputThreshold)
+		{
+			jump = true;
+		}
+		
+		return jump;
 	}
 	
 
