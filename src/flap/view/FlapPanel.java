@@ -112,15 +112,13 @@ public class FlapPanel extends JPanel
 		
 		Graphics2D drawingGraphics = (Graphics2D) graphics;
 		
-		if(this.bird != null)
+		for (int index = 0; index < app.getBirdAmount(); index++)
 		{
-			
 			drawingGraphics.setColor(Color.yellow);
 			drawingGraphics.setStroke(new BasicStroke(2));
 			drawingGraphics.fill(this.bird);
 			drawingGraphics.draw(this.bird);
 		}
-		
 		
 		drawingGraphics.setColor(Color.green);
 		drawingGraphics.setStroke(new BasicStroke(2));

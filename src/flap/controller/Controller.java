@@ -1,6 +1,7 @@
 package flap.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import flap.model.Bird;
 import flap.view.FlapPanel;
@@ -22,7 +23,9 @@ public class Controller
 	
 	private Bird maxBird;
 	
-	private ArrayList<Bird> birdList;
+	private HashMap<Integer, Bird> birdMap;
+	
+	private int birdAmount;
 	
 	public Controller()
 	{
@@ -33,7 +36,10 @@ public class Controller
 		this.birdsAlive = 1;
 		this.mutationRate = .99;
 		this.maxFitness = 0;
-		this.birdList = new ArrayList<Bird>();
+		this.birdMap = new HashMap<Integer, Bird>();
+		setupBirdMap(2);
+		this.birdAmount = birdMap.size();
+		
 		
 	}
 	
@@ -87,6 +93,24 @@ public class Controller
 	public void fitness()
 	{
 		bird.addFitness();
+	}
+	
+	private void setupBirdMap(int numBird)
+	{
+		for (int index =0; index < numBird; index++)
+		{
+			birdMap.put(index, new Bird(this));
+		}
+	}
+	
+	public int getBirdAmount()
+	{
+		return this.birdAmount;
+	}
+	
+	public HashMap<Integer, Bird> getBirdMap()
+	{
+		return this.birdMap;
 	}
 
 }
