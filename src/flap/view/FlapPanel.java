@@ -115,7 +115,7 @@ public class FlapPanel extends JPanel
 		if(this.bird != null)
 		{
 			
-			drawingGraphics.setColor(Color.green);
+			drawingGraphics.setColor(Color.yellow);
 			drawingGraphics.setStroke(new BasicStroke(2));
 			drawingGraphics.fill(this.bird);
 			drawingGraphics.draw(this.bird);
@@ -226,8 +226,17 @@ public class FlapPanel extends JPanel
 	//Placeholder, still needs polishing.
 	private Polygon drawBird()
 	{
-		int[] xPoints = {100, 150, 150, 170, 170, 150, 150, 120};
-		int[] yPoints = {400, 400, 370, 370, 340, 340, 310, 310};
+		int[] xPoints = {100, 150, 150, 175, 175, 200, 250, 200, 200, 150, 150, 125, 125, 75, 75, 25, 50, 75, 75, 50, 50,75, 75, 100, 100};
+		int[] yPoints = {400, 400, 375, 375, 350, 325, 325, 275, 250, 250, 275, 275, 325, 275, 325, 325, 350, 350, 375, 375, 400, 400, 375, 375, 400};
+		
+		for (int index = 0; index < xPoints.length; index++)
+		{
+			xPoints[index] /= 2;
+		}
+		for (int index = 0; index < yPoints.length; index++)
+		{
+			yPoints[index] /= 2;
+		}
 		
 		Polygon polygon = new Polygon(xPoints, yPoints, xPoints.length);
 				
@@ -253,9 +262,11 @@ public class FlapPanel extends JPanel
 	
 	public void move()
 	{
+		
 		if (this.bird != null)
 		{
 			bird.translate(0, 7);
+			app.fitness();
 		}
 		
 		topPipe.translate(-10, 0);
@@ -348,6 +359,8 @@ public class FlapPanel extends JPanel
 	public void reset()
 	{
 		pipeLayout = 1;
+		
+		this.panel.resetScore();
 		
 		this.bird = drawBird();
 		

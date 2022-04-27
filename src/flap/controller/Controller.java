@@ -48,9 +48,12 @@ public class Controller
 			
 			birdsAlive = 1;
 			
-			panel.reset();
+			bird.setThresholds(bird.getHiddenTopBias(), bird.getHiddenBottomBias(), bird.getOutputThreshold());
 			
-		}
+			panel.reset();
+			bird.resetFitness();
+			
+		} 
 	}
 	
 	public void birdDies()
@@ -61,6 +64,11 @@ public class Controller
 	private void birdMove()
 	{
 		panel.moveBird();
+	}
+	
+	public void fitness()
+	{
+		bird.addFitness();
 	}
 
 }

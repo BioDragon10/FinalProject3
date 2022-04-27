@@ -60,4 +60,9 @@ public class MainPanel extends JPanel
 		scoreLabel.setText("Score: " + score);
 	}
 	
+	public void resetScore()
+	{
+		score = 0;
+	}
+	
 }

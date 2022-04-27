@@ -18,15 +18,18 @@ public class Bird
 	
 	private int birdPosition;
 	
+	private int fitness;
+	
 	public Bird(Controller app)
 	{
 		this.app = app;
 		this.hiddenTopBias = 0.5;
 		this.hiddenBottomBias = 0.5;
-		this.hiddenOperation = 0;
+		this.hiddenOperation = 1;
 		this.outputThreshold = 0;
 		this.thresholds = new double[4];
 		this.mutationRate = 1;
+		this.fitness = 0;
 	}
 	
 	public boolean checkJump()
@@ -40,6 +43,7 @@ public class Bird
 		
 		isJump = outputNode(first);
 		
+		System.out.println(isJump);
 		return isJump;
 	}
 	
@@ -137,6 +141,16 @@ public class Bird
 		}
 		
 		return jump;
+	}
+	
+	public void addFitness()
+	{
+		this.fitness += 1;
+	}
+	
+	public void resetFitness()
+	{
+		this.fitness = 0;
 	}
 	
 
