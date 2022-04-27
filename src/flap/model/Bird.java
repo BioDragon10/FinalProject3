@@ -153,6 +153,11 @@ public class Bird
 		this.fitness = 0;
 	}
 	
+	public int getFitness()
+	{
+		return this.fitness;
+	}
+	
 
 	
 	
