@@ -24,10 +24,6 @@ public class FlapPanel extends JPanel
 	private MainPanel panel;
 	private BufferedImage canvasImage;
 	
-	private Polygon bird;
-	private int birdX;
-	private int birdY;
-	
 	private Polygon topPipe;
 	private Polygon bottomPipe;
 	
@@ -43,7 +39,6 @@ public class FlapPanel extends JPanel
 		
 		this.canvasImage = new BufferedImage(800, 800, BufferedImage.TYPE_INT_ARGB);
 		
-		this.setBird(drawBird());
 		this.topPipe = drawTopPipe();
 		this.bottomPipe = drawBottomPipe();
 		this.birdMap = new HashMap<Integer, Polygon>();
@@ -66,45 +61,9 @@ public class FlapPanel extends JPanel
 	
 	private void setupListeners()
 	{
-		this.addMouseListener(new MouseListener()
-		{
-			public void mouseClicked(MouseEvent click)
-			{
-				if (bird != null)
-				{
-					bird.translate(0, -10);
-					System.out.println("Click");
-					for (int current : bird.ypoints)
-					{
-						System.out.println(current);
-					}
-					moveBird();
-				}
-				
-			}
-			
-			public void mousePressed(MouseEvent press)
-			{
-				
-			}
-			
-			public void mouseReleased(MouseEvent release)
-			{
-				
-			}
-			
-			public void mouseEntered(MouseEvent enter)
-			{
-				
-			}
-			
-			public void mouseExited(MouseEvent exit)
-			{
-				
-			}
-		});
+		
 	}
-	
+	 
 	private void setupLayout()
 	{
 	
@@ -123,8 +82,12 @@ public class FlapPanel extends JPanel
 			System.out.println("Drew bird");
 			drawingGraphics.setColor(Color.yellow);
 			drawingGraphics.setStroke(new BasicStroke(2));
-			drawingGraphics.fill(birdMap.get(index));
-			drawingGraphics.draw(birdMap.get(index));
+			if (birdMap.get(index) != null)
+			{
+				drawingGraphics.fill(birdMap.get(index));
+				drawingGraphics.draw(birdMap.get(index));
+			}
+			
 		}
 		
 		drawingGraphics.setColor(Color.green);
@@ -138,10 +101,14 @@ public class FlapPanel extends JPanel
 		drawingGraphics.fill(this.bottomPipe);
 	}
 	
-	public void moveBird()
+	public void moveBird(int key)
 	{
-		bird.translate(0, -30);
-		repaint();
+		if (birdMap.get(key) != null)
+		{
+			birdMap.get(key).translate(0, -30);
+			repaint();
+		}
+		 
 	}
 	
 	private void drawCanvas()
@@ -247,11 +214,7 @@ public class FlapPanel extends JPanel
 				
 		return polygon;
 	}
-	
-	public void setBird(Polygon polygon)
-	{
-		this.bird = polygon;
-	}
+
 	
 	public void pause()
 	{
@@ -270,7 +233,7 @@ public class FlapPanel extends JPanel
 		
 		for (Map.Entry<Integer, Polygon> currentBird : birdMap.entrySet())
 		{
-			if (currentBird != null)
+			if (currentBird.getValue() != null)
 			{
 				currentBird.getValue().translate(0, 7);
 				app.fitness(currentBird.getKey());
@@ -292,31 +255,35 @@ public class FlapPanel extends JPanel
 				
 			}
 		}
-		if (this.bird != null)
+		for (Map.Entry<Integer, Polygon> currentBird : birdMap.entrySet())
 		{
-			if (bird.intersects(topPipe.getBounds2D()))
+			if (currentBird.getValue() != null)
 			{
-				this.bird = null;
-				app.birdDies();
-			}
-			else if (bird.intersects(bottomPipe.getBounds2D()))
-			{
-				this.bird = null;
-				app.birdDies();
-			}
-			else
-			{
-				for (int point : bird.ypoints)
+				if (currentBird.getValue().intersects(topPipe.getBounds2D()))
 				{
-					if (point > 800 || point < 0)
+					currentBird.setValue(null);
+					app.birdDies(currentBird.getKey());
+				}
+				else if (currentBird.getValue().intersects(bottomPipe.getBounds2D()))
+				{
+					currentBird.setValue(null);
+					app.birdDies(currentBird.getKey());
+				}
+				else
+				{
+					for (int point : currentBird.getValue().ypoints)
 					{
-						System.out.println(point);
-						this.bird = null;
-						app.birdDies();
+						if (point > 800 || point < 0)
+						{
+							System.out.println(point);
+							currentBird.setValue(null);
+							app.birdDies(currentBird.getKey());
+						}
 					}
 				}
 			}
 		}
+		
 		
 		
 		
@@ -354,15 +321,21 @@ public class FlapPanel extends JPanel
 		return min;
 	}
 	
-	public int getBirdPosition()
+	public int getBirdPosition(int key)
 	{
-		int sum = 0;
-		for (int point : bird.ypoints)
+		if (birdMap.get(key) != null)
 		{
-			sum += point;
+			int sum = 0;
+			for (int point : birdMap.get(key).ypoints)
+			{
+				sum += point;
+			}
+			
+			return sum / birdMap.get(key).ypoints.length;
 		}
-		
-		return sum / bird.ypoints.length;
+		else
+			return 0;
+			
 	}
 	
 	public void reset()
@@ -371,7 +344,10 @@ public class FlapPanel extends JPanel
 		
 		this.panel.resetScore();
 		
-		this.bird = drawBird();
+		for (Map.Entry<Integer, Polygon> currentBird : birdMap.entrySet())
+		{
+			currentBird.setValue(drawBird());
+		}
 		
 		this.topPipe = drawTopPipe();
 		
