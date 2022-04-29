@@ -11,6 +11,8 @@ import java.awt.event.MouseListener;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JPanel;
 
@@ -31,6 +33,8 @@ public class FlapPanel extends JPanel
 	
 	private int pipeLayout;
 	
+	private HashMap<Integer, Polygon> birdMap;
+	
 	public FlapPanel(Controller app, MainPanel panel)
 	{
 		this.panel = panel;
@@ -42,7 +46,9 @@ public class FlapPanel extends JPanel
 		this.setBird(drawBird());
 		this.topPipe = drawTopPipe();
 		this.bottomPipe = drawBottomPipe();
+		this.birdMap = new HashMap<Integer, Polygon>();
 	
+		setupBirdMap();
 		
 		setupPanel();
 		
@@ -112,12 +118,13 @@ public class FlapPanel extends JPanel
 		
 		Graphics2D drawingGraphics = (Graphics2D) graphics;
 		
-		for (int index = 0; index < app.getBirdAmount(); index++)
+		for (int index = 0; index < birdMap.size(); index++)
 		{
+			System.out.println("Drew bird");
 			drawingGraphics.setColor(Color.yellow);
 			drawingGraphics.setStroke(new BasicStroke(2));
-			drawingGraphics.fill(this.bird);
-			drawingGraphics.draw(this.bird);
+			drawingGraphics.fill(birdMap.get(index));
+			drawingGraphics.draw(birdMap.get(index));
 		}
 		
 		drawingGraphics.setColor(Color.green);
@@ -261,11 +268,15 @@ public class FlapPanel extends JPanel
 	public void move()
 	{
 		
-		if (this.bird != null)
+		for (Map.Entry<Integer, Polygon> currentBird : birdMap.entrySet())
 		{
-			bird.translate(0, 7);
-			app.fitness();
+			if (currentBird != null)
+			{
+				currentBird.getValue().translate(0, 7);
+				app.fitness(currentBird.getKey());
+			}
 		}
+		
 		
 		topPipe.translate(-10, 0);
 		bottomPipe.translate(-10, 0);
@@ -367,6 +378,15 @@ public class FlapPanel extends JPanel
 		this.bottomPipe = drawBottomPipe();
 		
 		repaint();
+	}
+	
+	private void setupBirdMap()
+	{
+		for (int index = 0; index < app.getBirdAmount(); index++)
+		{
+			Polygon bird = this.drawBird();
+			birdMap.put(index, bird);
+		}
 	}
 	
 }

@@ -29,6 +29,10 @@ public class Controller
 	
 	public Controller()
 	{
+		this.birdMap = new HashMap<Integer, Bird>();
+		setupBirdMap(2);
+		this.birdAmount = birdMap.size();
+		
 		this.bird = new Bird(this);
 		frame = new Frame(this);
 		mainPanel = frame.getPanel();
@@ -36,9 +40,7 @@ public class Controller
 		this.birdsAlive = 1;
 		this.mutationRate = .99;
 		this.maxFitness = 0;
-		this.birdMap = new HashMap<Integer, Bird>();
-		setupBirdMap(2);
-		this.birdAmount = birdMap.size();
+		
 		
 		
 	}
@@ -90,9 +92,9 @@ public class Controller
 		panel.moveBird();
 	}
 	
-	public void fitness()
+	public void fitness(int key)
 	{
-		bird.addFitness();
+		birdMap.get(key).addFitness();
 	}
 	
 	private void setupBirdMap(int numBird)
