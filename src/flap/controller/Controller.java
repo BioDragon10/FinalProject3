@@ -56,21 +56,24 @@ public class Controller
 	 */
 	private int birdAmount;
 	
+	private int[] deadKeys;
+	
 	/**
 	 * Initializes all the data members, sets up the birdMap, and creates the Frame.
 	 */
 	public Controller()
 	{
 		this.birdMap = new HashMap<Integer, Bird>();
-		setupBirdMap(2);
+		setupBirdMap(1000);
 		this.birdAmount = birdMap.size();
 		
 		frame = new Frame(this);
 		mainPanel = frame.getPanel();
 		panel = mainPanel.getFlapCanvas();
-		this.birdsAlive = 1;
+		this.birdsAlive = birdMap.size();
 		this.mutationRate = .99;
 		this.maxFitness = 0;
+		this.deadKeys = new int[birdMap.size()];
 	}
 	
 	/**
@@ -95,16 +98,18 @@ public class Controller
 					}
 				}
 				
+				System.out.println(birdsAlive);
 				panel.move();
 				panel.pause();
 			}
+			deadKeys = new int[birdMap.size()];
 			for (Map.Entry<Integer, Bird> currentBird : birdMap.entrySet())
 			{
 				currentBird.getValue().setMutationRate(mutationRate); //:)
 				currentBird.getValue().setThresholds(maxBird.getHiddenTopBias(), maxBird.getHiddenBottomBias(), maxBird.getOutputThreshold());
 				currentBird.getValue().resetFitness();
 			}
-			birdsAlive = 1;
+			birdsAlive = birdMap.size();
 			maxFitness = 0;
 			panel.reset();
 		} 
@@ -117,13 +122,26 @@ public class Controller
 	 */
 	public void birdDies(int key)
 	{
-		this.birdsAlive -= 1;
-		
-		if (birdMap.get(key).getFitness() > maxFitness)
+		int equal = 0;
+		for (int current : deadKeys)
 		{
-			maxFitness = birdMap.get(key).getFitness();
-			maxBird = birdMap.get(key);
+			if (current == key + 1)
+			{
+				equal += 1;
+			}
 		}
+		if (!(equal > 0))
+		{
+			deadKeys[key] = key + 1;
+			this.birdsAlive -= 1;
+			
+			if (birdMap.get(key).getFitness() > maxFitness)
+			{
+				maxFitness = birdMap.get(key).getFitness();
+				maxBird = birdMap.get(key);
+			}
+		}
+		
 	}
 	
 	/**

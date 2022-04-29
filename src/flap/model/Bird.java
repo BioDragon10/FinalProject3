@@ -95,7 +95,7 @@ public class Bird
 		
 		isJump = outputNode(first);
 		
-		System.out.println(isJump);
+		//System.out.println(isJump);
 		return isJump;
 	}
 	

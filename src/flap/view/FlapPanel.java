@@ -30,6 +30,7 @@ public class FlapPanel extends JPanel
 	private int pipeLayout;
 	
 	private HashMap<Integer, Polygon> birdMap;
+	private HashMap<Integer, Color> colorMap;
 	
 	public FlapPanel(Controller app, MainPanel panel)
 	{
@@ -42,8 +43,10 @@ public class FlapPanel extends JPanel
 		this.topPipe = drawTopPipe();
 		this.bottomPipe = drawBottomPipe();
 		this.birdMap = new HashMap<Integer, Polygon>();
+		this.colorMap = new HashMap<Integer, Color>();
 	
 		setupBirdMap();
+		setupColorMap();
 		
 		setupPanel();
 		
@@ -79,8 +82,8 @@ public class FlapPanel extends JPanel
 		
 		for (int index = 0; index < birdMap.size(); index++)
 		{
-			System.out.println("Drew bird");
-			drawingGraphics.setColor(Color.yellow);
+			//System.out.println("Drew bird");
+			drawingGraphics.setColor(colorMap.get(index));
 			drawingGraphics.setStroke(new BasicStroke(2));
 			if (birdMap.get(index) != null)
 			{
@@ -364,5 +367,25 @@ public class FlapPanel extends JPanel
 			birdMap.put(index, bird);
 		}
 	}
+	
+	private Color randomColor()
+	{
+		int redValue = (int) (Math.random() * 255);
+		int greenValue = (int) (Math.random() * 255);
+		int blueValue = (int) (Math.random() * 255);
+		
+		return new Color(redValue, greenValue, blueValue);
+	}
+	
+	private void setupColorMap()
+	{
+		for (int index = 0; index < app.getBirdAmount(); index++)
+		{
+			Color color = randomColor();
+			colorMap.put(index, color);
+		}
+		
+	}
+
 	
 }
