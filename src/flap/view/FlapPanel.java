@@ -278,7 +278,6 @@ public class FlapPanel extends JPanel
 					{
 						if (point > 800 || point < 0)
 						{
-							System.out.println(point);
 							currentBird.setValue(null);
 							app.birdDies(currentBird.getKey());
 						}

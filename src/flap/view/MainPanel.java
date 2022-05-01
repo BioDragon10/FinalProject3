@@ -12,6 +12,7 @@ public class MainPanel extends JPanel
 	private FlapPanel flapCanvas;
 	private SpringLayout layout;
 	private JLabel scoreLabel;
+	private JLabel aliveLabel;
 	
 	private double score;
 	
@@ -22,6 +23,8 @@ public class MainPanel extends JPanel
 		this.flapCanvas = new FlapPanel(app, this);
 		this.layout = new SpringLayout();
 		this.scoreLabel = new JLabel("Score: " + score);
+		this.aliveLabel = new JLabel("Birds Alive: 0");
+		
 		
 		
 		setupPanel();
@@ -34,6 +37,7 @@ public class MainPanel extends JPanel
 		this.setLayout(layout);
 		this.add(flapCanvas);
 		this.add(scoreLabel);
+		this.add(aliveLabel);
 	}
 	private void setupListeners()
 	{
@@ -41,6 +45,8 @@ public class MainPanel extends JPanel
 	}
 	private void setupLayout()
 	{
+		layout.putConstraint(SpringLayout.NORTH, aliveLabel, 10, SpringLayout.SOUTH, scoreLabel);
+		layout.putConstraint(SpringLayout.WEST, aliveLabel, 10, SpringLayout.EAST, flapCanvas);
 		layout.putConstraint(SpringLayout.NORTH, flapCanvas, 0, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.WEST, flapCanvas, 0, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.SOUTH, flapCanvas, 0, SpringLayout.SOUTH, this);
@@ -63,6 +69,11 @@ public class MainPanel extends JPanel
 	public void resetScore()
 	{
 		score = 0;
+	}
+	
+	public void updateBirdCount(int bird)
+	{
+		aliveLabel.setText("Birds Alive: " + bird);
 	}
 	
 }
