@@ -1,5 +1,7 @@
 package flap.view;
 
+import java.util.ArrayList;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -18,6 +20,8 @@ public class MainPanel extends JPanel
 	private JScrollPane fitnessPane;
 	private JTextArea fitnessText;
 	
+	private ArrayList<String> fitnessHistory;
+	
 	private double score;
 	
 	public MainPanel(Controller app)
@@ -32,6 +36,8 @@ public class MainPanel extends JPanel
 		this.fitnessPane = new JScrollPane();
 		
 		this.fitnessText = new JTextArea(20, 0);
+		
+		this.fitnessHistory = new ArrayList<String>();
 		
 		
 		setupFitnessPane();
@@ -98,6 +104,24 @@ public class MainPanel extends JPanel
 	public void updateBirdCount(int bird)
 	{
 		aliveLabel.setText("Birds Alive: " + bird);
+	}
+	
+	public void changeHistory(String newest)
+	{
+		fitnessHistory.add(newest);
+		fitnessText.setText(null);
+		for (int index = 0; index < fitnessHistory.size(); index++)
+		{
+			if (index == 0)
+			{
+				fitnessText.append("Generation " + (index + 1) + ": " + fitnessHistory.get(index));
+			}
+			else
+			{
+				fitnessText.append("\nGeneration " + (index + 1) + ": " + fitnessHistory.get(index));
+			}
+			
+		}
 	}
 	
 }

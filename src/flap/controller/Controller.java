@@ -64,7 +64,7 @@ public class Controller
 	public Controller()
 	{
 		this.birdMap = new HashMap<Integer, Bird>();
-		setupBirdMap(100);
+		setupBirdMap(5);
 		this.birdAmount = birdMap.size();
 		
 		frame = new Frame(this);
@@ -102,6 +102,7 @@ public class Controller
 				panel.pause();
 				mainPanel.updateBirdCount(birdsAlive);
 			}
+			mainPanel.changeHistory("" + maxFitness);
 			deadKeys = new int[birdMap.size()];
 			for (Map.Entry<Integer, Bird> currentBird : birdMap.entrySet())
 			{
