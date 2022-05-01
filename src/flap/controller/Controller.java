@@ -64,7 +64,7 @@ public class Controller
 	public Controller()
 	{
 		this.birdMap = new HashMap<Integer, Bird>();
-		setupBirdMap(1000);
+		setupBirdMap(10000);
 		this.birdAmount = birdMap.size();
 		
 		frame = new Frame(this);
