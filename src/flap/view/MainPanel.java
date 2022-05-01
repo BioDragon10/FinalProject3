@@ -2,6 +2,8 @@ package flap.view;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.SpringLayout;
 
 import flap.controller.Controller;
@@ -13,6 +15,8 @@ public class MainPanel extends JPanel
 	private SpringLayout layout;
 	private JLabel scoreLabel;
 	private JLabel aliveLabel;
+	private JScrollPane fitnessPane;
+	private JTextArea fitnessText;
 	
 	private double score;
 	
@@ -25,11 +29,26 @@ public class MainPanel extends JPanel
 		this.scoreLabel = new JLabel("Score: " + score);
 		this.aliveLabel = new JLabel("Birds Alive: 0");
 		
+		this.fitnessPane = new JScrollPane();
+		
+		this.fitnessText = new JTextArea(20, 0);
 		
 		
+		setupFitnessPane();
 		setupPanel();
 		setupListeners();
 		setupLayout();
+	}
+	
+	private void setupFitnessPane()
+	{
+		fitnessText.setLineWrap(true);
+		fitnessText.setWrapStyleWord(true);
+		fitnessText.setEnabled(false);
+		
+		fitnessPane.setViewportView(fitnessText);
+		fitnessPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		fitnessPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	}
 	
 	private void setupPanel()
@@ -38,6 +57,7 @@ public class MainPanel extends JPanel
 		this.add(flapCanvas);
 		this.add(scoreLabel);
 		this.add(aliveLabel);
+		this.add(fitnessPane);
 	}
 	private void setupListeners()
 	{
@@ -53,6 +73,10 @@ public class MainPanel extends JPanel
 		layout.putConstraint(SpringLayout.EAST, flapCanvas, -200, SpringLayout.EAST, this);
 		layout.putConstraint(SpringLayout.NORTH, scoreLabel, 10, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.WEST, scoreLabel, 10, SpringLayout.EAST, flapCanvas);
+		layout.putConstraint(SpringLayout.NORTH, fitnessPane, 10, SpringLayout.SOUTH, aliveLabel);
+		layout.putConstraint(SpringLayout.WEST, fitnessPane, 10, SpringLayout.EAST, flapCanvas);
+		layout.putConstraint(SpringLayout.SOUTH, fitnessPane, -10, SpringLayout.SOUTH, this);
+		layout.putConstraint(SpringLayout.EAST, fitnessPane, -10, SpringLayout.EAST, this);
 	}
 	
 	public FlapPanel getFlapCanvas()
