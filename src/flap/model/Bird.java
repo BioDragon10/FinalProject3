@@ -15,12 +15,12 @@ public class Bird
 	/**
 	 * Holds the y position of the top pipe
 	 */
-	private int topY;
+	protected int topY;
 	
 	/**
 	 * Holds the y position of the bottom pipe
 	 */
-	private int bottomY;
+	protected int bottomY;
 	
 	/**
 	 * (UNUSED FOR NOW) meant to hold all of the thresholds in an array.
@@ -30,32 +30,32 @@ public class Bird
 	/**
 	 * Holds the bias for the top pipe.
 	 */
-	private double hiddenTopBias;
+	protected double hiddenTopBias;
 	
 	/**
 	 * Holds the bias for the bottom pipe.
 	 */
-	private double hiddenBottomBias;
+	protected double hiddenBottomBias;
 	
 	/**
 	 * Holds the operation for the hidden node.
 	 */
-	private int hiddenOperation;
+	protected int hiddenOperation;
 	
 	/**
 	 * Holds the threshold for the output node
 	 */
-	private double outputThreshold;
+	protected double outputThreshold;
 	
 	/**
 	 * Holds the mutation rate for changes in the biases
 	 */
-	private double mutationRate;
+	protected double mutationRate;
 	
 	/**
 	 * Holds the bird's position
 	 */
-	private int birdPosition;
+	protected int birdPosition;
 	
 	/**
 	 * Holds the fitness for the bird
@@ -134,7 +134,7 @@ public class Bird
 	 * @return
 	 * 			returns true if 0, false otherwise.
 	 */
-	private boolean coinFlip()
+	protected boolean coinFlip()
 	{
 		return (int) (Math.random() * 2) == 0;
 	}
@@ -178,7 +178,7 @@ public class Bird
 	 * @return
 	 * 			Returns an output between 0 and 1.
 	 */
-	private double firstNode(int top, int bot)
+	protected double firstNode(int top, int bot)
 	{
 		double output = 0;
 		double topIn = top * hiddenTopBias;
