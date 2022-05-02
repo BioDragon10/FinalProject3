@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
+import flap.model.AdvancedBird;
 import flap.model.Bird;
 import flap.view.FlapPanel;
 import flap.view.Frame;
@@ -46,6 +49,8 @@ public class Controller
 	 */
 	private Bird maxBird;
 	
+	private AdvancedBird maxAdvancedBird;
+	
 	/**
 	 * Sets up a HashMap that will store every bird.
 	 */
@@ -57,6 +62,8 @@ public class Controller
 	private int birdAmount;
 	
 	private int[] deadKeys;
+	
+	private boolean isAdvancedBirds;
 	
 	/**
 	 * Initializes all the data members, sets up the birdMap, and creates the Frame.
@@ -106,8 +113,20 @@ public class Controller
 			deadKeys = new int[birdMap.size()];
 			for (Map.Entry<Integer, Bird> currentBird : birdMap.entrySet())
 			{
-				currentBird.getValue().setMutationRate(mutationRate); //:)
-				currentBird.getValue().setThresholds(maxBird.getHiddenTopBias(), maxBird.getHiddenBottomBias(), maxBird.getOutputThreshold());
+				currentBird.getValue().setMutationRate(mutationRate);
+				if (isAdvancedBirds)
+				{
+					AdvancedBird advanced = (AdvancedBird) currentBird.getValue();
+					advanced.setThresholds(maxAdvancedBird.getHiddenTopBias(), maxAdvancedBird.getHiddenBottomBias(), maxAdvancedBird.getHiddenTopBias2(), 
+														 maxAdvancedBird.getHiddenBottomBias2(), maxAdvancedBird.getOutputThreshold(), maxAdvancedBird.getOutputTopBias(),
+														 maxAdvancedBird.getOutputBottomBias());
+				}
+				else
+				{
+					currentBird.getValue().setThresholds(maxBird.getHiddenTopBias(), maxBird.getHiddenBottomBias(), maxBird.getOutputThreshold());
+				}
+				 //:)
+				
 				currentBird.getValue().resetFitness();
 			}
 			birdsAlive = birdMap.size();
@@ -139,6 +158,10 @@ public class Controller
 			if (birdMap.get(key).getFitness() > maxFitness)
 			{
 				maxFitness = birdMap.get(key).getFitness();
+				if (isAdvancedBirds)
+				{
+					maxAdvancedBird = (AdvancedBird) birdMap.get(key);
+				}
 				maxBird = birdMap.get(key);
 			}
 		}
@@ -172,10 +195,26 @@ public class Controller
 	 */
 	private void setupBirdMap(int numBird)
 	{
-		for (int index =0; index < numBird; index++)
+		String answer = JOptionPane.showInputDialog("Would you like to use advanced birds (y/n)", this);
+		
+		if (answer.equalsIgnoreCase("y"))
 		{
-			birdMap.put(index, new Bird(this));
+			for (int index =0; index < numBird; index++)
+			{
+				birdMap.put(index, new AdvancedBird(this));
+				this.isAdvancedBirds = true;
+			}
 		}
+		else
+		{
+			for (int index =0; index < numBird; index++)
+			{
+				birdMap.put(index, new Bird(this));
+				this.isAdvancedBirds = false;
+
+			}
+		}
+		
 	}
 	
 	public int getBirdAmount()

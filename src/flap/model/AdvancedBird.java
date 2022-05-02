@@ -8,13 +8,16 @@ public class AdvancedBird extends Bird
 	private double hiddenBottomBias2;
 	private double hiddenTopBias2;
 	private int outputOperation;
+	private double outputTopBias;
+	private double outputBottomBias;
 	
 	public AdvancedBird (Controller app)
 	{
 		super(app);
-		this.hiddenOperation2 = 1;
 		this.hiddenBottomBias2 = 0.5;
 		this.hiddenTopBias2 = 0.5;
+		this.outputTopBias = 0.5;
+		this.outputBottomBias = 0.5;
 	}
 	
 	@Override
@@ -30,10 +33,12 @@ public class AdvancedBird extends Bird
 		
 		isJump = outputNode(first, second);
 		
+		System.out.println("Advanced bird!");
+		
 		return isJump;
 	}
 	
-	public void setThresholds(double hidTop1, double hidBot1, double hidTop2, double hidBot2, double outThres)
+	public void setThresholds(double hidTop1, double hidBot1, double hidTop2, double hidBot2, double outThres, double outTop, double outBot)
 	{
 		int coinFlip = coinFlip() ? -1 : 1;
 		double mutationBias = (Math.random() / mutationRate);
@@ -48,6 +53,8 @@ public class AdvancedBird extends Bird
 		this.outputThreshold = outThres + mutationRate;
 		int coinFlip4 = coinFlip() ? 1 : 2;
 		this.outputOperation = coinFlip4;
+		this.outputBottomBias = (outBot + (mutationBias * coinFlip * -1));
+		this.outputTopBias = (outTop + (mutationBias * coinFlip));
 	}
 	
 	private double bottomHiddenNode(int topDistance, int bottomDistance)
@@ -106,5 +113,25 @@ public class AdvancedBird extends Bird
 		}
 				
 		return jump;
+	}
+	
+	public double getOutputTopBias()
+	{
+		return this.outputTopBias;
+	}
+	
+	public double getOutputBottomBias()
+	{
+		return this.outputBottomBias;
+	}
+	
+	public double getHiddenTopBias2()
+	{
+		return this.hiddenTopBias2;
+	}
+	
+	public double getHiddenBottomBias2()
+	{
+		return this.hiddenBottomBias2;
 	}
 }
