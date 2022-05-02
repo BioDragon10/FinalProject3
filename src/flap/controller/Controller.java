@@ -1,10 +1,18 @@
 package flap.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import flap.model.AdvancedBird;
 import flap.model.Bird;
@@ -88,6 +96,10 @@ public class Controller
 	 */
 	public void start()
 	{
+		for (String current : loadText())
+		{
+			System.out.println(current);
+		}
 		while (true)
 		{
 			
@@ -226,5 +238,124 @@ public class Controller
 	{
 		return this.birdMap;
 	}
+	
+	private void saveText(String text)
+	{
+
+		JFileChooser saver = new JFileChooser();
+		saver.showSaveDialog(frame);
+		String path = saver.getSelectedFile().getPath();
+		
+		if(!path.endsWith(".txt"))
+		{
+			path += ".txt";
+		}
+		
+		try (PrintWriter saveText = new PrintWriter(path))
+		{	
+			
+			saveText.println(text);
+		}
+		catch (IOException errorFromIO)
+		{
+			JOptionPane.showMessageDialog(frame, errorFromIO.getMessage(), "Save Error!", JOptionPane.ERROR_MESSAGE);;
+		}
+		catch (Exception genericError)
+		{
+			JOptionPane.showMessageDialog(frame, genericError.getMessage(), "Save Error!", JOptionPane.ERROR_MESSAGE);;
+		}
+	}
+	
+//	private ArrayList<String> loadTextToList(String filename)
+//	{
+//		ArrayList<String> fileContents = new ArrayList<String>();
+//		
+//		File source = new File(filename);
+//				
+//		try (Scanner fileScanner = new Scanner(source))
+//		{
+//			while (fileScanner.hasNextLine())
+//			{
+//				fileContents.add(fileScanner.nextLine());
+//			}
+//		}
+//		catch (IOException fileError)
+//		{
+//			handleError(fileError);
+//		}
+//		catch (Exception error)
+//		{
+//			handleError(error);
+//		}
+//		
+//		return fileContents;
+//	}
+	
+//	public void loadImage()
+//	{
+//		BufferedImage source = null;
+//		
+//		try
+//		{
+//			JFileChooser picker = new JFileChooser();
+//			picker.setAcceptAllFileFilterUsed(false);
+//			picker.addChoosableFileFilter(new FileNameExtensionFilter("Pictures!", "png"));
+//			int valid = picker.showOpenDialog(this);
+//			
+//			if(valid == JFileChooser.APPROVE_OPTION)
+//			{
+//				String filePath = picker.getSelectedFile().getPath();
+//				source = ImageIO.read(new File(filePath));
+//				canvasImage = source;
+//				repaint();
+//			}
+//		}
+//		catch (IOException exception)
+//		{
+//			controller.handleError(exception);
+//		}
+//	}
+	
+	private ArrayList<String> loadText()
+	{
+		ArrayList<String> fileContents = new ArrayList<String>();
+		
+		try
+		{
+			JFileChooser picker = new JFileChooser();
+			picker.setAcceptAllFileFilterUsed(false);
+			picker.addChoosableFileFilter(new FileNameExtensionFilter("Old Birds", "txt"));
+			int valid = picker.showOpenDialog(frame);
+			
+			if(valid == JFileChooser.APPROVE_OPTION)
+			{
+				String filePath = picker.getSelectedFile().getPath();
+				File source = new File(filePath);
+				try (Scanner fileScanner = new Scanner(source))
+				{
+					while (fileScanner.hasNextLine())
+					{
+						fileContents.add(fileScanner.nextLine());
+					}
+				}
+//				catch (IOException fileError)
+//				{
+//					JOptionPane.showMessageDialog(frame, fileError.getMessage(), "Load Error!", JOptionPane.ERROR_MESSAGE);;
+//				}
+				catch (Exception error)
+				{
+					JOptionPane.showMessageDialog(frame, error.getMessage(), "Load Error!", JOptionPane.ERROR_MESSAGE);;
+				}
+			}
+		}
+		catch (Exception exception)
+		{
+			JOptionPane.showMessageDialog(frame, exception.getMessage(), "Load Error!", JOptionPane.ERROR_MESSAGE);;
+		}
+		
+		return fileContents;
+	}
+	
+	
 
 }
