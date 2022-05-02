@@ -32,11 +32,15 @@ public class FlapPanel extends JPanel
 	private HashMap<Integer, Polygon> birdMap;
 	private HashMap<Integer, Color> colorMap;
 	
+	private double size;
+	
 	public FlapPanel(Controller app, MainPanel panel)
 	{
 		this.panel = panel;
 		this.app = app;
 		this.pipeLayout = 1;
+		
+		this.size = 1.0;
 		
 		this.canvasImage = new BufferedImage(800, 800, BufferedImage.TYPE_INT_ARGB);
 		

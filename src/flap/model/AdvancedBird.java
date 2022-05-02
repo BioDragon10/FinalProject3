@@ -33,7 +33,7 @@ public class AdvancedBird extends Bird
 		
 		isJump = outputNode(first, second);
 		
-		System.out.println("Advanced bird!");
+		//System.out.println("Advanced bird!");
 		
 		return isJump;
 	}

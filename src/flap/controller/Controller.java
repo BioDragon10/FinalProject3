@@ -79,7 +79,7 @@ public class Controller
 	public Controller()
 	{
 		this.birdMap = new HashMap<Integer, Bird>();
-		setupBirdMap(5);
+		setupBirdMap(50);
 		this.birdAmount = birdMap.size();
 		
 		frame = new Frame(this);
@@ -96,10 +96,10 @@ public class Controller
 	 */
 	public void start()
 	{
-		for (String current : loadText())
-		{
-			System.out.println(current);
-		}
+//		for (String current : loadText())
+//		{
+//			System.out.println(current);
+//		}
 		while (true)
 		{
 			
