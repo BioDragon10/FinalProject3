@@ -26,7 +26,7 @@ public class Frame extends JFrame
 	{
 		this.setContentPane(panel);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("Flap");
+		this.setTitle("Flappy Bird AI");
 		this.setSize(1200, 800);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
