@@ -2,15 +2,49 @@ package flap.model;
 
 import flap.controller.Controller;
 
+/**
+ * Is a bird with two nodes in the hidden layer instead of the default one.
+ * @author rlaw7457
+ * @date May 3, 2022
+ * @version 1.0
+ */
 public class AdvancedBird extends Bird 
 {
+	/**
+	 * Holds the operation of the second hidden node.
+	 */
 	private int hiddenOperation2;
+	
+	/**
+	 * Holds the bottomBias of the second hidden node.
+	 */
 	private double hiddenBottomBias2;
+	
+	/**
+	 * Holds the topBias of the second hidden node.
+	 */
 	private double hiddenTopBias2;
+	
+	/**
+	 * Holds the operation of the output node.
+	 */
 	private int outputOperation;
+	
+	/**
+	 * Holds the topBias of the output node.
+	 */
 	private double outputTopBias;
+	
+	/**
+	 * Holds the bottomBias of the output node.
+	 */
 	private double outputBottomBias;
 	
+	/**
+	 * Sets up all of the default values.
+	 * @param app
+	 * 			 Holds the reference to the Controller.
+	 */			 
 	public AdvancedBird (Controller app)
 	{
 		super(app);
@@ -20,6 +54,9 @@ public class AdvancedBird extends Bird
 		this.outputBottomBias = 0.5;
 	}
 	
+	/**
+	 * Same as regular bird checkJump, but has the other hidden node.
+	 */
 	@Override
 	public boolean checkJump()
 	{
@@ -38,6 +75,24 @@ public class AdvancedBird extends Bird
 		return isJump;
 	}
 	
+	
+	/**
+	 * Sets the thresholds for the biases and thresholds.
+	 * @param hidTop1
+	 * 				 bias for the hidden top node's top pipe value.
+	 * @param hidBot1
+	 * 				 bias for the hidden top node's bottom pipe value.
+	 * @param hidTop2
+	 * 				 bias for the hidden bottom node's top pipe value.
+	 * @param hidBot2
+	 * 				 bias for the hidden bottom node's bottom pipe value.
+	 * @param outThres
+	 * 				 threshold for whether or not the final node will output true.
+	 * @param outTop
+	 * 				 bias for the output node's top value.
+	 * @param outBot
+	 * 				bias for the output node's bottom value.
+	 */
 	public void setThresholds(double hidTop1, double hidBot1, double hidTop2, double hidBot2, double outThres, double outTop, double outBot)
 	{
 		int coinFlip = coinFlip() ? -1 : 1;
@@ -57,6 +112,15 @@ public class AdvancedBird extends Bird
 		this.outputTopBias = (outTop + (mutationBias * coinFlip));
 	}
 	
+	/**
+	 * Does the stuff for the hidden bottom node.
+	 * @param topDistance
+	 * 					 Takes in the bird's distance from the top pipe.
+	 * @param bottomDistance
+	 * 					 Takes in the bird's distance from the bottom pipe.
+	 * @return
+	 * 		  Returns a number between 0 and 1 that will be sent to the output node.
+	 */
 	private double bottomHiddenNode(int topDistance, int bottomDistance)
 	{
 		double output = 0;
@@ -84,6 +148,15 @@ public class AdvancedBird extends Bird
 		return output / 100;
 	}
 	
+	/**
+	 * Handles the output node's logic.
+	 * @param topIn
+	 *		Handles the top node's output.
+	 * @param botIn
+	 *		Handles the bottom node's output.
+	 * @return
+	 * 		Returns true if the input's pass the threshold, false otherwise.
+	 */
 	private boolean outputNode(double topIn, double botIn)
 	{
 		boolean jump = false;
