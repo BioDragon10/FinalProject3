@@ -246,6 +246,21 @@ public class Bird
 		return this.fitness;
 	}
 	
+	public void setHiddenTopBias(double bias)
+	{
+		this.hiddenTopBias = bias;
+	}
+	
+	public void setHiddenBottomBias(double bias)
+	{
+		this.hiddenBottomBias = bias;
+	}
+	
+	public void setOutputThreshold(double thresh)
+	{
+		this.outputThreshold = thresh;
+	}
+	
 
 	
 	

@@ -239,7 +239,7 @@ public class Controller
 		return this.birdMap;
 	}
 	
-	private void saveText(String text)
+	private void saveText(ArrayList<String> text)
 	{
 
 		JFileChooser saver = new JFileChooser();
@@ -253,8 +253,11 @@ public class Controller
 		
 		try (PrintWriter saveText = new PrintWriter(path))
 		{	
+			for (String current : text)
+			{
+				saveText.println(current);
+			}
 			
-			saveText.println(text);
 		}
 		catch (IOException errorFromIO)
 		{
@@ -354,6 +357,26 @@ public class Controller
 		}
 		
 		return fileContents;
+	}
+	
+	public void saveBird()
+	{
+		ArrayList<String> maxStats = new ArrayList<String>();
+		
+		maxStats.add(maxBird.getHiddenTopBias() + "");
+		maxStats.add(maxBird.getHiddenBottomBias() + "");
+		maxStats.add(maxBird.getOutputThreshold() + "");
+		
+		saveText(maxStats);
+	}
+	
+	public void loadBird()
+	{
+		ArrayList<String> maxStats = loadText();
+		
+		maxBird.setHiddenTopBias(Double.parseDouble(maxStats.get(0)));
+		maxBird.setHiddenBottomBias(Double.parseDouble(maxStats.get(1)));
+		maxBird.setOutputThreshold(Double.parseDouble(maxStats.get(2)));
 	}
 	
 	
