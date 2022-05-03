@@ -73,6 +73,8 @@ public class Controller
 	
 	private boolean isAdvancedBirds;
 	
+	private boolean isLoading;
+	
 	/**
 	 * Initializes all the data members, sets up the birdMap, and creates the Frame.
 	 */
@@ -89,6 +91,7 @@ public class Controller
 		this.mutationRate = .99;
 		this.maxFitness = 0;
 		this.deadKeys = new int[birdMap.size()];
+		this.isLoading = false;
 	}
 	
 	/**
@@ -103,7 +106,7 @@ public class Controller
 		while (true)
 		{
 			
-			while(birdsAlive > 0)
+			while(birdsAlive > 0 && isLoading == false)
 			{
 				for (Map.Entry<Integer, Bird> currentBird : birdMap.entrySet())
 				{
@@ -121,6 +124,7 @@ public class Controller
 				panel.pause();
 				mainPanel.updateBirdCount(birdsAlive);
 			}
+			this.isLoading = false;
 			mainPanel.changeHistory("" + maxFitness);
 			deadKeys = new int[birdMap.size()];
 			for (Map.Entry<Integer, Bird> currentBird : birdMap.entrySet())
@@ -374,9 +378,17 @@ public class Controller
 	{
 		ArrayList<String> maxStats = loadText();
 		
-		maxBird.setHiddenTopBias(Double.parseDouble(maxStats.get(0)));
-		maxBird.setHiddenBottomBias(Double.parseDouble(maxStats.get(1)));
-		maxBird.setOutputThreshold(Double.parseDouble(maxStats.get(2)));
+		double hidTop = Double.parseDouble(maxStats.get(0));
+		double hidBot = Double.parseDouble(maxStats.get(1));
+		double outThresh = Double.parseDouble(maxStats.get(2));
+		
+		maxBird.setHiddenTopBias(hidTop);
+		maxBird.setHiddenBottomBias(hidBot);
+		maxBird.setOutputThreshold(outThresh);
+		
+		mainPanel.loadedText(hidTop, hidBot, outThresh);
+		
+		this.isLoading = true;
 	}
 	
 	

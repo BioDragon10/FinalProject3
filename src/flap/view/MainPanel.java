@@ -2,6 +2,7 @@ package flap.view;
 
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,6 +20,9 @@ public class MainPanel extends JPanel
 	private JLabel aliveLabel;
 	private JScrollPane fitnessPane;
 	private JTextArea fitnessText;
+	private JButton saveButton;
+	private JButton loadButton;
+	private int generationNum;
 	
 	private ArrayList<String> fitnessHistory;
 	
@@ -38,6 +42,12 @@ public class MainPanel extends JPanel
 		this.fitnessText = new JTextArea(20, 0);
 		
 		this.fitnessHistory = new ArrayList<String>();
+		
+		this.saveButton = new JButton("Save");
+		
+		this.loadButton = new JButton("Load");
+		this.generationNum = 0;
+		
 		
 		
 		setupFitnessPane();
@@ -64,10 +74,13 @@ public class MainPanel extends JPanel
 		this.add(scoreLabel);
 		this.add(aliveLabel);
 		this.add(fitnessPane);
+		this.add(saveButton);
+		this.add(loadButton);
 	}
 	private void setupListeners()
 	{
-		
+		saveButton.addActionListener(click -> app.saveBird());
+		loadButton.addActionListener(click -> app.loadBird());
 	}
 	private void setupLayout()
 	{
@@ -81,8 +94,12 @@ public class MainPanel extends JPanel
 		layout.putConstraint(SpringLayout.WEST, scoreLabel, 10, SpringLayout.EAST, flapCanvas);
 		layout.putConstraint(SpringLayout.NORTH, fitnessPane, 10, SpringLayout.SOUTH, aliveLabel);
 		layout.putConstraint(SpringLayout.WEST, fitnessPane, 10, SpringLayout.EAST, flapCanvas);
-		layout.putConstraint(SpringLayout.SOUTH, fitnessPane, -10, SpringLayout.SOUTH, this);
 		layout.putConstraint(SpringLayout.EAST, fitnessPane, -10, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.SOUTH, fitnessPane, -10, SpringLayout.NORTH, saveButton);
+		layout.putConstraint(SpringLayout.WEST, saveButton, 10, SpringLayout.EAST, flapCanvas);
+		layout.putConstraint(SpringLayout.SOUTH, saveButton, -10, SpringLayout.SOUTH, this);
+		layout.putConstraint(SpringLayout.SOUTH, loadButton, -10, SpringLayout.SOUTH, this);
+		layout.putConstraint(SpringLayout.EAST, loadButton, -10, SpringLayout.EAST, this);
 	}
 	
 	public FlapPanel getFlapCanvas()
@@ -108,20 +125,29 @@ public class MainPanel extends JPanel
 	
 	public void changeHistory(String newest)
 	{
-		fitnessHistory.add(newest);
+		generationNum += 1;
+		if (fitnessHistory.size() == 0)
+		{
+			fitnessHistory.add("Generation " + (generationNum) + ": " + newest);
+		}
+		else
+		{
+			fitnessHistory.add("\nGeneration " + (generationNum) + ": " + newest);
+		}
+		
 		fitnessText.setText(null);
 		for (int index = 0; index < fitnessHistory.size(); index++)
 		{
-			if (index == 0)
-			{
-				fitnessText.append("Generation " + (index + 1) + ": " + fitnessHistory.get(index));
-			}
-			else
-			{
-				fitnessText.append("\nGeneration " + (index + 1) + ": " + fitnessHistory.get(index));
-			}
+			fitnessText.append(fitnessHistory.get(index));
 			
 		}
+	}
+	
+	public void loadedText(double top, double bot, double out)
+	{
+		fitnessHistory.add("\nHidden Top Bias was set to: " + top);
+		fitnessHistory.add("\nHidden Bottom Bias was set to: " + bot);
+		fitnessHistory.add("\nOutput Threshold was set to: " + out);
 	}
 	
 }
