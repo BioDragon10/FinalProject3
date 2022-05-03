@@ -57,6 +57,9 @@ public class Controller
 	 */
 	private Bird maxBird;
 	
+	/**
+	 * Grabs the AdvancedBird with the best genes.
+	 */
 	private AdvancedBird maxAdvancedBird;
 	
 	/**
@@ -69,10 +72,19 @@ public class Controller
 	 */
 	private int birdAmount;
 	
+	/**
+	 * Holds the keys of the dead birds.
+	 */
 	private int[] deadKeys;
 	
+	/**
+	 * Holds if the user is using advancedBirds or not.
+	 */
 	private boolean isAdvancedBirds;
 	
+	/**
+	 * Holds if the program is loading a bird model.
+	 */
 	private boolean isLoading;
 	
 	/**
@@ -243,6 +255,11 @@ public class Controller
 		return this.birdMap;
 	}
 	
+	/**
+	 * Saves the text of the maxBird.
+	 * @param text
+	 * 			  An ArrayList that holds the values of the maxBird.
+	 */
 	private void saveText(ArrayList<String> text)
 	{
 
@@ -273,56 +290,11 @@ public class Controller
 		}
 	}
 	
-//	private ArrayList<String> loadTextToList(String filename)
-//	{
-//		ArrayList<String> fileContents = new ArrayList<String>();
-//		
-//		File source = new File(filename);
-//				
-//		try (Scanner fileScanner = new Scanner(source))
-//		{
-//			while (fileScanner.hasNextLine())
-//			{
-//				fileContents.add(fileScanner.nextLine());
-//			}
-//		}
-//		catch (IOException fileError)
-//		{
-//			handleError(fileError);
-//		}
-//		catch (Exception error)
-//		{
-//			handleError(error);
-//		}
-//		
-//		return fileContents;
-//	}
-	
-//	public void loadImage()
-//	{
-//		BufferedImage source = null;
-//		
-//		try
-//		{
-//			JFileChooser picker = new JFileChooser();
-//			picker.setAcceptAllFileFilterUsed(false);
-//			picker.addChoosableFileFilter(new FileNameExtensionFilter("Pictures!", "png"));
-//			int valid = picker.showOpenDialog(this);
-//			
-//			if(valid == JFileChooser.APPROVE_OPTION)
-//			{
-//				String filePath = picker.getSelectedFile().getPath();
-//				source = ImageIO.read(new File(filePath));
-//				canvasImage = source;
-//				repaint();
-//			}
-//		}
-//		catch (IOException exception)
-//		{
-//			controller.handleError(exception);
-//		}
-//	}
-	
+	/**
+	 * Loads a bird model selected by the user.
+	 * @return
+	 * 		  Returns an ArrayList of the values of the bird selected.
+	 */
 	private ArrayList<String> loadText()
 	{
 		ArrayList<String> fileContents = new ArrayList<String>();
@@ -363,6 +335,9 @@ public class Controller
 		return fileContents;
 	}
 	
+	/**
+	 * Gets the maxBird's stats, puts them into an ArrayList, and gives it to saveText.
+	 */
 	public void saveBird()
 	{
 		ArrayList<String> maxStats = new ArrayList<String>();
@@ -374,6 +349,9 @@ public class Controller
 		saveText(maxStats);
 	}
 	
+	/**
+	 * Sets the values of the birds to match the loadedBird.
+	 */
 	public void loadBird()
 	{
 		ArrayList<String> maxStats = loadText();
