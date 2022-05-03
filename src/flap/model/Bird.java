@@ -5,6 +5,13 @@ import java.util.Map;
 
 import flap.controller.Controller;
 
+/**
+ * Holds a reference to a bird with its AI.
+ * 
+ * @author rlaw7457
+ * @date May 3, 22
+ * @version 1.0
+ */
 public class Bird
 {
 	/**
@@ -99,35 +106,7 @@ public class Bird
 		return isJump;
 	}
 	
-	public void setTopY(int top)
-	{
-		this.topY = top;
-	}
 	
-	public void setBottomY(int bottom)
-	{
-		this.bottomY = bottom;
-	}
-	
-	public double getHiddenTopBias()
-	{
-		return this.hiddenTopBias;
-	}
-	
-	public double getHiddenBottomBias()
-	{
-		return this.hiddenBottomBias;
-	}
-	
-	public int getHiddenOperation()
-	{
-		return this.hiddenOperation;
-	}
-	
-	public double getOutputThreshold()
-	{
-		return this.outputThreshold;
-	}
 	
 	/**
 	 * Simulates a coinFlip.
@@ -159,15 +138,7 @@ public class Bird
 		this.outputThreshold = outThres + mutationRate;
 	}
 	
-	public void setMutationRate(double mutRate)
-	{
-		this.mutationRate = mutRate;
-	}
 	
-	public void setBirdPosition(int pos)
-	{
-		this.birdPosition = pos;
-	}
 	
 	/**
 	 * Handles the first hidden node.
@@ -241,6 +212,10 @@ public class Bird
 		this.fitness = 0;
 	}
 	
+	/*
+	 * Getters and Setters
+	 */
+	
 	public int getFitness()
 	{
 		return this.fitness;
@@ -259,6 +234,46 @@ public class Bird
 	public void setOutputThreshold(double thresh)
 	{
 		this.outputThreshold = thresh;
+	}
+	
+	public void setTopY(int top)
+	{
+		this.topY = top;
+	}
+	
+	public void setBottomY(int bottom)
+	{
+		this.bottomY = bottom;
+	}
+	
+	public double getHiddenTopBias()
+	{
+		return this.hiddenTopBias;
+	}
+	
+	public double getHiddenBottomBias()
+	{
+		return this.hiddenBottomBias;
+	}
+	
+	public int getHiddenOperation()
+	{
+		return this.hiddenOperation;
+	}
+	
+	public double getOutputThreshold()
+	{
+		return this.outputThreshold;
+	}
+	
+	public void setMutationRate(double mutRate)
+	{
+		this.mutationRate = mutRate;
+	}
+	
+	public void setBirdPosition(int pos)
+	{
+		this.birdPosition = pos;
 	}
 	
 
