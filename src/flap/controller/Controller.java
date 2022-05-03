@@ -20,6 +20,13 @@ import flap.view.FlapPanel;
 import flap.view.Frame;
 import flap.view.MainPanel;
 
+/**
+ * Starts the project and communicates between the panels and models.
+ * @author rlaw7457
+ * @date May 3, 2022
+ * @version 1.0
+ *
+ */
 public class Controller 
 {
 	/**
