@@ -18,30 +18,69 @@ import javax.swing.JPanel;
 
 import flap.controller.Controller;
 
+/**
+ * Holds the game panel where the pipes and birds exist.
+ * 
+ * @author rlaw7457
+ * @date May 3, 2022
+ * @Version 1.0
+ */
 public class FlapPanel extends JPanel
 {
+	/*
+	 * Holds a reference to the Controller
+	 */
 	private Controller app;
+	
+	/*
+	 * Holds a reference to the MainPanel
+	 */
 	private MainPanel panel;
+	
+	/*
+	 * The image that holds all of the polygons.
+	 */
 	private BufferedImage canvasImage;
 	
+	/**
+	 * Holds the top pipe's shape.
+	 */
 	private Polygon topPipe;
+	
+	/**
+	 * Holds the bottom pipe's shape.
+	 */
 	private Polygon bottomPipe;
 	
+	/**
+	 * Holds what layout the pipes will be in.
+	 */
 	private int pipeLayout;
 	
+	/*
+	 * Holds a list of bird polygons with their keys.
+	 */
 	private HashMap<Integer, Polygon> birdMap;
+	
+	/*
+	 * Holds a list of Colors for each key.
+	 */
 	private HashMap<Integer, Color> colorMap;
 	
-	private double size;
-	
+
+	/**
+	 * Sets up the FlapPanel and the pipes, as well as the birdMap with its ColorMap.
+	 * @param app
+	 * 		Grabs the Controller reference.
+	 * @param panel
+	 * 		Grabs the MainPanel reference.
+	 */
 	public FlapPanel(Controller app, MainPanel panel)
 	{
 		this.panel = panel;
 		this.app = app;
 		this.pipeLayout = 1;
-		
-		this.size = 1.0;
-		
+	
 		this.canvasImage = new BufferedImage(800, 800, BufferedImage.TYPE_INT_ARGB);
 		
 		this.topPipe = drawTopPipe();
@@ -59,24 +98,37 @@ public class FlapPanel extends JPanel
 		setupLayout();
 	}
 	
+	/**
+	 * Sets up the panel with a backGround and draws the Canvas.
+	 */
 	private void setupPanel()
 	{
 		this.setMinimumSize(new Dimension(800, 800));
 		this.setBackground(Color.blue);
-		drawCanvas();
+		repaint();
 	}
 	
+	/**
+	 * Placeholder for if I need to have listeners.
+	 */
 	private void setupListeners()
 	{
 		
 	}
 	 
+	/**
+	 * Placeholder for windowBuilder stuff.
+	 */
 	private void setupLayout()
 	{
 	
 	}
 	
-	@Override
+	
+	/**
+	 * Paints the birds and the pipes.
+	 * @Override
+	 */
 	protected void paintComponent(Graphics graphics)
 	{
 		super.paintComponent(graphics);
@@ -108,6 +160,11 @@ public class FlapPanel extends JPanel
 		drawingGraphics.fill(this.bottomPipe);
 	}
 	
+	/**
+	 * Moves the bird based on its key.
+	 * @param key
+	 * 		The key of the bird that wants to move.
+	 */
 	public void moveBird(int key)
 	{
 		if (birdMap.get(key) != null)
@@ -118,24 +175,11 @@ public class FlapPanel extends JPanel
 		 
 	}
 	
-	private void drawCanvas()
-	{
-		Graphics2D drawingGraphics = (Graphics2D) canvasImage.getGraphics();
-		
-		
-		
-		
-		
-//		Polygon bird = drawBird();
-
-
-//		System.out.println("drw bird");
-//		
-
-		
-		repaint();
-	}
-	
+	/**
+	 * Draws the top pipe.
+	 * @return
+	 * 		Returns a Polygon for the top pipe.
+	 */
 	private Polygon drawTopPipe()
 	{
 		int lengthPoints = 0;
@@ -170,6 +214,11 @@ public class FlapPanel extends JPanel
 		return polygon;
 	}
 	
+	/**
+	 * Draws the bottom pipe.
+	 * @return
+	 * 		A polygon for the bottom pipe.
+	 */
 	private Polygon drawBottomPipe()
 	{
 		int lengthPoints = 0;
@@ -202,7 +251,11 @@ public class FlapPanel extends JPanel
 		return polygon;
 	}
 	
-	//Placeholder, still needs polishing.
+	/**
+	 * Draws a bird.
+	 * @return
+	 * 		A polygonal bird.
+	 */
 	private Polygon drawBird()
 	{
 		int[] xPoints = {100, 150, 150, 175, 175, 200, 250, 200, 200, 150, 150, 125, 125, 75, 75, 25, 50, 75, 75, 50, 50,75, 75, 100, 100};
@@ -222,7 +275,9 @@ public class FlapPanel extends JPanel
 		return polygon;
 	}
 
-	
+	/**
+	 * Pauses the Thread.
+	 */
 	public void pause()
 	{
 		try
@@ -235,6 +290,9 @@ public class FlapPanel extends JPanel
 		}
 	}
 	
+	/**
+	 * Moves the bird down and the pipes left. Also checks if their is collision.
+	 */
 	public void move()
 	{
 		
@@ -295,6 +353,7 @@ public class FlapPanel extends JPanel
 		
 		repaint();
 	}
+	
 	
 	public int getUpperPipe()
 	{
