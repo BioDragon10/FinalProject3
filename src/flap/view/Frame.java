@@ -6,9 +6,21 @@ import flap.controller.Controller;
 
 public class Frame extends JFrame 
 {
+	/**
+	 * Holds a reference to the Controller
+	 */
 	private Controller app;
+	
+	/**
+	 * Holds a reference to the main panel.
+	 */
 	private MainPanel panel;
 	
+	/**
+	 * Creates and sets up the frame.
+	 * @param app
+	 * 		Gets the Controller.
+	 */
 	public Frame(Controller app)
 	{
 		this.app = app;
@@ -17,11 +29,9 @@ public class Frame extends JFrame
 		setupFrame();
 	}
 	
-	public MainPanel getPanel()
-	{
-		return this.panel;
-	}
-	
+	/**
+	 * Sets up the frame.
+	 */
 	private void setupFrame()
 	{
 		this.setContentPane(panel);
@@ -31,6 +41,11 @@ public class Frame extends JFrame
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
+	}
+	
+	public MainPanel getPanel()
+	{
+		return this.panel;
 	}
 	
 	
