@@ -4,6 +4,12 @@ import javax.swing.JFrame;
 
 import flap.controller.Controller;
 
+/**
+ * Creates the Frame that will hold the panels.
+ * @author rlaw7457
+ * @version 1.0
+ * @date 5/5/22
+ */
 public class Frame extends JFrame 
 {
 	/**
