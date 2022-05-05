@@ -5,7 +5,7 @@
     <id>UMLClass</id>
     <coordinates>
       <x>486</x>
-      <y>66</y>
+      <y>90</y>
       <w>162</w>
       <h>246</h>
     </coordinates>
@@ -44,7 +44,7 @@ group=1</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>360</x>
-      <y>66</y>
+      <y>90</y>
       <w>108</w>
       <h>36</h>
     </coordinates>
@@ -58,7 +58,7 @@ group=1</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>12</x>
-      <y>48</y>
+      <y>72</y>
       <w>198</w>
       <h>210</h>
     </coordinates>
@@ -92,7 +92,7 @@ group=3</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>12</x>
-      <y>294</y>
+      <y>318</y>
       <w>306</w>
       <h>138</h>
     </coordinates>
@@ -118,7 +118,7 @@ group=3</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>108</x>
-      <y>252</y>
+      <y>276</y>
       <w>18</w>
       <h>54</h>
     </coordinates>
@@ -130,7 +130,7 @@ group=3</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>924</x>
-      <y>72</y>
+      <y>96</y>
       <w>204</w>
       <h>270</h>
     </coordinates>
@@ -170,7 +170,7 @@ group=2</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>720</x>
-      <y>138</y>
+      <y>162</y>
       <w>186</w>
       <h>240</h>
     </coordinates>
@@ -208,7 +208,7 @@ group=2</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>720</x>
-      <y>66</y>
+      <y>90</y>
       <w>144</w>
       <h>66</h>
     </coordinates>
@@ -227,7 +227,7 @@ group=2</panel_attributes>
     <id>UMLPackage</id>
     <coordinates>
       <x>348</x>
-      <y>48</y>
+      <y>72</y>
       <w>330</w>
       <h>306</h>
     </coordinates>
@@ -241,7 +241,7 @@ group=1</panel_attributes>
     <id>UMLPackage</id>
     <coordinates>
       <x>714</x>
-      <y>48</y>
+      <y>72</y>
       <w>426</w>
       <h>396</h>
     </coordinates>
@@ -255,7 +255,7 @@ group=2</panel_attributes>
     <id>UMLPackage</id>
     <coordinates>
       <x>0</x>
-      <y>24</y>
+      <y>48</y>
       <w>330</w>
       <h>432</h>
     </coordinates>
