@@ -11,23 +11,79 @@ import javax.swing.SpringLayout;
 
 import flap.controller.Controller;
 
+/**
+ * Holds the data for the birds and the flapPanel.
+ * @author rlaw7457
+ * @version 1.0
+ * @date 5/5/22
+ */
 public class MainPanel extends JPanel
 {
+	/**
+	 * Holds the reference to the Controller.
+	 */
 	private Controller app;
+	
+	/**
+	 * Holds the reference to the FlapPanel.
+	 */
 	private FlapPanel flapCanvas;
+	
+	/**
+	 * Holds a SpringLayout for the panel.
+	 */
 	private SpringLayout layout;
+	
+	/**
+	 * A label that will hold the score.
+	 */
 	private JLabel scoreLabel;
+	
+	/**
+	 * A label that will hold the number of birds alive.
+	 */
 	private JLabel aliveLabel;
+	
+	/**
+	 * A scrollPane that will allow you to scroll through the history.
+	 */
 	private JScrollPane fitnessPane;
+	
+	/**
+	 * Text that will hold the history.
+	 */
 	private JTextArea fitnessText;
+	
+	/**
+	 * Button that saves.
+	 */
 	private JButton saveButton;
+	
+	/**
+	 * Button that loads
+	 */
 	private JButton loadButton;
+	
+	/**
+	 * Holds the generation number.
+	 */
 	private int generationNum;
 	
+	/**
+	 * Holds all of the Strings from the history.
+	 */
 	private ArrayList<String> fitnessHistory;
 	
+	/**
+	 * Holds the score.
+	 */
 	private double score;
 	
+	/**
+	 * Initializes all the components of the panel and sets up the layout and such.
+	 * @param app
+	 * 		A parameter that holds a reference to the Controller.
+	 */
 	public MainPanel(Controller app)
 	{
 		this.app = app;
@@ -56,6 +112,9 @@ public class MainPanel extends JPanel
 		setupLayout();
 	}
 	
+	/**
+	 * Sets up the FitnessPane.
+	 */
 	private void setupFitnessPane()
 	{
 		fitnessText.setLineWrap(true);
@@ -67,6 +126,9 @@ public class MainPanel extends JPanel
 		fitnessPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	}
 	
+	/**
+	 * Adds the components to the panel.
+	 */
 	private void setupPanel()
 	{
 		this.setLayout(layout);
@@ -77,11 +139,19 @@ public class MainPanel extends JPanel
 		this.add(saveButton);
 		this.add(loadButton);
 	}
+	
+	/**
+	 * Adds the listeners for the save and load buttons.
+	 */
 	private void setupListeners()
 	{
 		saveButton.addActionListener(click -> app.saveBird());
 		loadButton.addActionListener(click -> app.loadBird());
 	}
+	
+	/**
+	 * Sets up the layout of the panel.
+	 */
 	private void setupLayout()
 	{
 		layout.putConstraint(SpringLayout.NORTH, aliveLabel, 10, SpringLayout.SOUTH, scoreLabel);
@@ -102,27 +172,38 @@ public class MainPanel extends JPanel
 		layout.putConstraint(SpringLayout.EAST, loadButton, -10, SpringLayout.EAST, this);
 	}
 	
-	public FlapPanel getFlapCanvas()
-	{
-		return flapCanvas;
-	}
-	
+	/**
+	 * Adds to the score.
+	 */
 	public void addScore()
 	{
 		score += 0.5;
 		scoreLabel.setText("Score: " + score);
 	}
 	
+	/**
+	 * Resets the score.
+	 */
 	public void resetScore()
 	{
 		score = 0;
 	}
 	
+	/**
+	 * Updates the aliveLabel.
+	 * @param bird
+	 * 		Grabs the number of birds alive.
+	 */
 	public void updateBirdCount(int bird)
 	{
 		aliveLabel.setText("Birds Alive: " + bird);
 	}
 	
+	/**
+	 * Adds to the history.
+	 * @param newest
+	 * 		Adds the newest history to be added.
+	 */
 	public void changeHistory(String newest)
 	{
 		generationNum += 1;
@@ -143,11 +224,25 @@ public class MainPanel extends JPanel
 		}
 	}
 	
+	/**
+	 * Updates the history with the loaded values.
+	 * @param top
+	 * 		The topBias value.
+	 * @param bot
+	 * 		The bottomBias value.
+	 * @param out
+	 * 		The outputThreshold value.
+	 */
 	public void loadedText(double top, double bot, double out)
 	{
 		fitnessHistory.add("\nHidden Top Bias was set to: " + top);
 		fitnessHistory.add("\nHidden Bottom Bias was set to: " + bot);
 		fitnessHistory.add("\nOutput Threshold was set to: " + out);
+	}
+	
+	public FlapPanel getFlapCanvas()
+	{
+		return flapCanvas;
 	}
 	
 }
