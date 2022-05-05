@@ -188,6 +188,10 @@ public class AdvancedBird extends Bird
 		return jump;
 	}
 	
+	//
+	// Getters
+	//
+	
 	public double getOutputTopBias()
 	{
 		return this.outputTopBias;

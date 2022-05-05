@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>486</x>
+      <y>66</y>
+      <w>162</w>
+      <h>246</h>
+    </coordinates>
+    <panel_attributes>flap.controller :: Controller
+--
+- frame : Frame
+- panel : FlapPanel
+- birdsAlive : int
+- mainPanel : MainPanel
+- mutationRate : double
+- maxFitness : int
+- maxBird : Bird
+- maxAdvancedBird : AdvancedBird
+- birdMap : HashMap&lt;Integer, Bird&gt;
+- birdAmount : int
+- deadKeys : int[]
+- isAdvancedBirds : boolean
+- isLoading : boolean
+--
++ Controller() : constructor
++ start() : void
++ birdDies(int) : void
+- birdMove(int) : void
++ fitness(int) : void
+- setUpBirdMap(int) : void
+- saveText(ArrayList&lt;String&gt; : void
+- loadText() : ArrayList&lt;String&gt;
++ saveBird() : void
++ loadBird() : void
++ get(...)
+
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>66</y>
+      <w>108</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>flap.controller :: Runner
+--
+psvm
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>12</x>
+      <y>48</y>
+      <w>198</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>flap.model :: Bird
+--
+- app : Controller
+# topY : int
+# bottomY : int
+- thresholds : double[]
+# hiddenTopBias : double
+# hiddenBottomBias : double
+# hiddenOperation : int
+# outputThreshold : double
+# mutationRate : double
+# birdPosition : int
+- fitness : int
+--
++ Bird(Controller) : constructor
++ checkJump() : boolean
+# coinFlip() : boolean
++ setThresholds(double, double, double) : void
+# firstNode(int, int) : double
+- outputNode(double) : boolean
++ addFitness() : void
++ resetFitness() : void
++ get/set(...)
+group=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>12</x>
+      <y>294</y>
+      <w>306</w>
+      <h>138</h>
+    </coordinates>
+    <panel_attributes>flap.model :: AdvancedBird
+--
+- hiddenOperation2 : int
+- hiddenBottomBias2: double
+- hiddenTopBias2: double
+- outputOperation : int
+- outputTopBias : double
+- outputBottomBias : double
+--
++ AdvancedBird(Controller) : constructor
++ checkJump() : boolean
++ setThresholds(double, double, double, double, double, double, double)
+- bottomHiddenNode(int, int) : double
+- outputNode(double, double) : boolean
++ get(...)
+group=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>108</x>
+      <y>252</y>
+      <w>18</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+group=3</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>924</x>
+      <y>72</y>
+      <w>204</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>flap.view :: FlapPanel
+--
+- app : Controller;
+- panel : MainPanel;
+- canvasImage : BufferedImage
+- topPipe : Polygon
+- bottomPipe : Polygon
+- pipeLayout : int
+- birdMap : HashMap&lt;Integer, Polygon&gt;
+- colorMap : HashMap&lt;Integer, Color&gt;
+--
++ FlapPanel(Controller, MainPanel) : constructor
+- setupPanel() : void
+- setupListeners() : void
+- setupLayout() : void
+# paintComponent(Graphics) : void
++ moveBird(int) : void
+- drawTopPipe() : Polygon
+- drawBottomPipe() : Polygon
+- drawBird() : Polygon
++ pause() : void
++ move() : void
++ getUpperPipe() : int
++ getLowerPipe() : int
++ getBirdPosition(int) : int
++ reset() : void
+- setupBirdMap() : void
+- randomColor() : Color
+- setupColorMap() : void
+group=2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>720</x>
+      <y>138</y>
+      <w>186</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>flap.view :: MainPanel
+--
+- app : Controller;
+- flapCanvas : FlapPanel
+- layout : SpringLayout
+- scoreLabel : JLabel
+- aliveLabel : JLabel
+- fitnessPane : JScrollPane
+- fitnessText : JTextArea
+- saveButton : JButton
+- loadButton : JButton
+- generationNum : int
+- fitnessHistory : ArrayList&lt;String&gt;
+- score : double
+--
++ MainPanel(app) : constructor
+- setupFitnessPane() : void
+- setupPanel() : void
+- setupListeners() : void
+- setupLayout() : void
++ addScore() : void
++ resetScore() : void
++ updateBirdCount(int) : void
++ changeHistory(String) : void
++ loadedText(double, double, double) : void
++ get(...)
+
+group=2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>720</x>
+      <y>66</y>
+      <w>144</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>flap.view :: Frame
+--
+- app : Controller
+- panel : MainPanel
+--
++ Frame(Controller) : constructor
+- setupFrame() : void
++ get(...)
+group=2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>348</x>
+      <y>48</y>
+      <w>330</w>
+      <h>306</h>
+    </coordinates>
+    <panel_attributes>flap.controller
+--
+bg=green
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>714</x>
+      <y>48</y>
+      <w>426</w>
+      <h>396</h>
+    </coordinates>
+    <panel_attributes>flap.view
+--
+bg=blue
+group=2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>0</x>
+      <y>24</y>
+      <w>330</w>
+      <h>432</h>
+    </coordinates>
+    <panel_attributes>flap.model
+--
+bg=orange
+group=3</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

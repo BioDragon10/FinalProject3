@@ -252,15 +252,7 @@ public class Controller
 		
 	}
 	
-	public int getBirdAmount()
-	{
-		return this.birdAmount;
-	}
 	
-	public HashMap<Integer, Bird> getBirdMap()
-	{
-		return this.birdMap;
-	}
 	
 	/**
 	 * Saves the text of the maxBird.
@@ -375,6 +367,21 @@ public class Controller
 		
 		this.isLoading = true;
 	}
+	
+	//
+	// Getters
+	//
+	
+	public int getBirdAmount()
+	{
+		return this.birdAmount;
+	}
+	
+	public HashMap<Integer, Bird> getBirdMap()
+	{
+		return this.birdMap;
+	}
+	
 	
 	
 

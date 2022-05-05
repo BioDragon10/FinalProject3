@@ -67,6 +67,10 @@ public class FlapPanel extends JPanel
 	 */
 	private HashMap<Integer, Color> colorMap;
 	
+	/**
+	 * Holds a size value for making the pipes harder.
+	 */
+	private double size;
 
 	/**
 	 * Sets up the FlapPanel and the pipes, as well as the birdMap with its ColorMap.
@@ -87,6 +91,7 @@ public class FlapPanel extends JPanel
 		this.bottomPipe = drawBottomPipe();
 		this.birdMap = new HashMap<Integer, Polygon>();
 		this.colorMap = new HashMap<Integer, Color>();
+		this.size = 1.0;
 	
 		setupBirdMap();
 		setupColorMap();
@@ -185,7 +190,7 @@ public class FlapPanel extends JPanel
 		int lengthPoints = 0;
 		if (pipeLayout == 1)
 		{
-			lengthPoints = 250 + 25;
+			lengthPoints = 250 + (int)(25 * size);
 		}
 		else if (pipeLayout == 2)
 		{
@@ -197,11 +202,11 @@ public class FlapPanel extends JPanel
 		}
 		else if (pipeLayout == 4)
 		{
-			lengthPoints = 350 + 50;
+			lengthPoints = 350 + (int)(50 * size);
 		}
 		else if (pipeLayout == 5)
 		{
-			lengthPoints = 450 + 50;
+			lengthPoints = 450 + (int)(50 * size);
 		}
 
 		int[] xPoints = {1000, 1000, 990, 990, 1110, 1110, 1100, 1100, 1000};
@@ -224,15 +229,15 @@ public class FlapPanel extends JPanel
 		int lengthPoints = 0;
 		if (pipeLayout == 1)
 		{
-			lengthPoints = 530 - 25;
+			lengthPoints = 530 - (int)(25 * size);
 		}
 		else if (pipeLayout == 2)
 		{
-			lengthPoints = 430 - 50;
+			lengthPoints = 430 - (int)(50 * size);
 		}
 		else if (pipeLayout == 3)
 		{
-			lengthPoints = 330 - 50;
+			lengthPoints = 330 - (int)(50 * size);
 		}
 		else if (pipeLayout == 4)
 		{
