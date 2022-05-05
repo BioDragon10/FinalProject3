@@ -291,7 +291,7 @@ public class FlapPanel extends JPanel
 	}
 	
 	/**
-	 * Moves the bird down and the pipes left. Also checks if their is collision.
+	 * Moves the bird down and the pipes left. Also checks if there is collision.
 	 */
 	public void move()
 	{
@@ -355,6 +355,11 @@ public class FlapPanel extends JPanel
 	}
 	
 	
+	/**
+	 * Grabs the lowest point on the pipe.
+	 * @return
+	 * 		The lowest point on the pipe.
+	 */
 	public int getUpperPipe()
 	{
 		int max = 0;
@@ -370,6 +375,11 @@ public class FlapPanel extends JPanel
 		return max;
 	}
 	
+	/**
+	 * Grabs the highest point on the bottom pipe.
+	 * @return
+	 * 		Highest point.
+	 */
 	public int getLowerPipe()
 	{
 		
@@ -386,6 +396,13 @@ public class FlapPanel extends JPanel
 		return min;
 	}
 	
+	/**
+	 * Grabs the average yPoint of the bird for its position.
+	 * @param key
+	 * 		The key of the bird that you want to grab its position.
+	 * @return
+	 * 		Returns the y value of its position.
+	 */
 	public int getBirdPosition(int key)
 	{
 		if (birdMap.get(key) != null)
@@ -403,6 +420,9 @@ public class FlapPanel extends JPanel
 			
 	}
 	
+	/**
+	 * Resets the pipes and redraws the birds.
+	 */
 	public void reset()
 	{
 		pipeLayout = 1;
@@ -421,6 +441,9 @@ public class FlapPanel extends JPanel
 		repaint();
 	}
 	
+	/**
+	 * sets up the bird map.
+	 */
 	private void setupBirdMap()
 	{
 		for (int index = 0; index < app.getBirdAmount(); index++)
@@ -430,6 +453,11 @@ public class FlapPanel extends JPanel
 		}
 	}
 	
+	/**
+	 * Gets a random Color.
+	 * @return
+	 * 		Returns a random color.
+	 */
 	private Color randomColor()
 	{
 		int redValue = (int) (Math.random() * 255);
@@ -439,6 +467,9 @@ public class FlapPanel extends JPanel
 		return new Color(redValue, greenValue, blueValue);
 	}
 	
+	/**
+	 * Sets up the HashMap of the colors.
+	 */
 	private void setupColorMap()
 	{
 		for (int index = 0; index < app.getBirdAmount(); index++)
