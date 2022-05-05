@@ -71,6 +71,12 @@ public class FlapPanel extends JPanel
 	 * Holds a size value for making the pipes harder.
 	 */
 	private double size;
+	
+	
+	/**
+	 * Holds a value for the pipeColor.
+	 */
+	private Color pipeColor;
 
 	/**
 	 * Sets up the FlapPanel and the pipes, as well as the birdMap with its ColorMap.
@@ -92,6 +98,7 @@ public class FlapPanel extends JPanel
 		this.birdMap = new HashMap<Integer, Polygon>();
 		this.colorMap = new HashMap<Integer, Color>();
 		this.size = 1.0;
+		this.pipeColor = Color.green;
 	
 		setupBirdMap();
 		setupColorMap();
@@ -154,12 +161,12 @@ public class FlapPanel extends JPanel
 			
 		}
 		
-		drawingGraphics.setColor(Color.green);
+		drawingGraphics.setColor(pipeColor);
 		drawingGraphics.setStroke(new BasicStroke(2));
 		drawingGraphics.draw(this.topPipe);
 		drawingGraphics.fill(this.topPipe);
 		
-		drawingGraphics.setColor(Color.green);
+		drawingGraphics.setColor(pipeColor);
 		drawingGraphics.setStroke(new BasicStroke(2));
 		drawingGraphics.draw(this.bottomPipe);
 		drawingGraphics.fill(this.bottomPipe);
@@ -318,6 +325,21 @@ public class FlapPanel extends JPanel
 		{
 			if (current <= 0 )
 			{
+				size = Math.random() + 1;
+				System.out.println(size + "");
+				if (size <= 1.33)
+				{
+					pipeColor = Color.green;
+				}
+				else if (size <= 1.66)
+				{
+					pipeColor = Color.yellow;
+				}
+				else
+				{
+					pipeColor = Color.red;
+				}
+				size += .5;
 				topPipe = drawTopPipe();
 				bottomPipe = drawBottomPipe();
 				pipeLayout = (int) (Math.random() * 5 + 1);
