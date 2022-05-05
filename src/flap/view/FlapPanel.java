@@ -77,6 +77,8 @@ public class FlapPanel extends JPanel
 	 * Holds a value for the pipeColor.
 	 */
 	private Color pipeColor;
+	
+	private boolean isMovingPipe;
 
 	/**
 	 * Sets up the FlapPanel and the pipes, as well as the birdMap with its ColorMap.
@@ -99,6 +101,7 @@ public class FlapPanel extends JPanel
 		this.colorMap = new HashMap<Integer, Color>();
 		this.size = 1.0;
 		this.pipeColor = Color.green;
+		this.isMovingPipe = false;
 	
 		setupBirdMap();
 		setupColorMap();
@@ -317,6 +320,18 @@ public class FlapPanel extends JPanel
 			}
 		}
 		
+		if (isMovingPipe)
+		{
+			boolean coin = (int)(Math.random() * 2) == 1 ? true : false;
+			if(coin)
+			{
+				
+			}
+			else
+			{
+				
+			}
+		}
 		
 		topPipe.translate(-10, 0);
 		bottomPipe.translate(-10, 0);
@@ -325,25 +340,36 @@ public class FlapPanel extends JPanel
 		{
 			if (current <= 0 )
 			{
-				size = Math.random() + 1;
-				System.out.println(size + "");
-				if (size <= 1.33)
+				boolean coin = (int)(Math.random() * 2) == 1 ? true : false;
+				if(coin)
 				{
-					pipeColor = Color.green;
-				}
-				else if (size <= 1.66)
-				{
-					pipeColor = Color.yellow;
+					isMovingPipe = true;
+					size = 1;
 				}
 				else
 				{
-					pipeColor = Color.red;
+					isMovingPipe = false;
+					size = Math.random() + 1;
+					System.out.println(size + "");
+					if (size <= 1.33)
+					{
+						pipeColor = Color.green;
+					}
+					else if (size <= 1.66)
+					{
+						pipeColor = Color.yellow;
+					}
+					else
+					{
+						pipeColor = Color.red;
+					}
+					size += .5;
+					topPipe = drawTopPipe();
+					bottomPipe = drawBottomPipe();
+					pipeLayout = (int) (Math.random() * 5 + 1);
+					panel.addScore();
+					
 				}
-				size += .5;
-				topPipe = drawTopPipe();
-				bottomPipe = drawBottomPipe();
-				pipeLayout = (int) (Math.random() * 5 + 1);
-				panel.addScore();
 				
 			}
 		}
