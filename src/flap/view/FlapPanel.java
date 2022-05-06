@@ -77,6 +77,11 @@ public class FlapPanel extends JPanel
 	 * Holds a value for the pipeColor.
 	 */
 	private Color pipeColor;
+	
+	/**
+	 * Holds a value for the pipe speed
+	 */
+	private int pipeSpeed;
 
 	/**
 	 * Sets up the FlapPanel and the pipes, as well as the birdMap with its ColorMap.
@@ -99,6 +104,8 @@ public class FlapPanel extends JPanel
 		this.colorMap = new HashMap<Integer, Color>();
 		this.size = 1.0;
 		this.pipeColor = Color.green;
+		
+		this.pipeSpeed = -10;
 	
 		setupBirdMap();
 		setupColorMap();
@@ -318,8 +325,8 @@ public class FlapPanel extends JPanel
 		}
 		
 		
-		topPipe.translate(-10, 0);
-		bottomPipe.translate(-10, 0);
+		topPipe.translate(pipeSpeed, 0);
+		bottomPipe.translate(pipeSpeed, 0);
 		
 		
 		for(int current : topPipe.xpoints)
@@ -341,6 +348,9 @@ public class FlapPanel extends JPanel
 					pipeColor = Color.red;
 				}
 				size += .5;
+				
+				pipeSpeed = ((int)(Math.random() * 20) + 10) * -1;
+				System.out.println(pipeSpeed);
 				topPipe = drawTopPipe();
 				bottomPipe = drawBottomPipe();
 				pipeLayout = (int) (Math.random() * 5 + 1);
