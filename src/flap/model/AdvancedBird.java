@@ -41,6 +41,16 @@ public class AdvancedBird extends Bird
 	private double outputBottomBias;
 	
 	/**
+	 * 
+	 */
+	private int weight;
+	
+	/**
+	 * 
+	 */
+	private double power;
+	
+	/**
 	 * Sets up all of the default values.
 	 * @param app
 	 * 			 Holds the reference to the Controller.
@@ -52,6 +62,8 @@ public class AdvancedBird extends Bird
 		this.hiddenTopBias2 = 0.5;
 		this.outputTopBias = 0.5;
 		this.outputBottomBias = 0.5;
+		this.weight = 10;
+		this.power = 1.0;
 	}
 	
 	/**
@@ -210,5 +222,10 @@ public class AdvancedBird extends Bird
 	public double getHiddenBottomBias2()
 	{
 		return this.hiddenBottomBias2;
+	}
+	
+	public int getWeight()
+	{
+		return this.weight;
 	}
 }

@@ -319,7 +319,7 @@ public class FlapPanel extends JPanel
 		{
 			if (currentBird.getValue() != null)
 			{
-				currentBird.getValue().translate(0, 7);
+				currentBird.getValue().translate(0, 14);
 				app.fitness(currentBird.getKey());
 			}
 		}
