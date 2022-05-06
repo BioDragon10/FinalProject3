@@ -94,6 +94,8 @@ public class Controller
 	 */
 	private boolean isLoading;
 	
+	private boolean saveBestBird;
+	
 	/**
 	 * Initializes all the data members, sets up the birdMap, and creates the Frame.
 	 */
@@ -118,13 +120,14 @@ public class Controller
 	 */
 	public void start()
 	{
+		
 //		for (String current : loadText())
 //		{
 //			System.out.println(current);
 //		}
 		while (true)
 		{
-			
+			saveBestBird = true;
 			while(birdsAlive > 0 && isLoading == false)
 			{
 				for (Map.Entry<Integer, Bird> currentBird : birdMap.entrySet())
@@ -143,30 +146,7 @@ public class Controller
 				panel.pause();
 				mainPanel.updateBirdCount(birdsAlive);
 			}
-			this.isLoading = false;
-			mainPanel.changeHistory("" + maxFitness);
-			deadKeys = new int[birdMap.size()];
-			for (Map.Entry<Integer, Bird> currentBird : birdMap.entrySet())
-			{
-				currentBird.getValue().setMutationRate(mutationRate);
-				if (isAdvancedBirds)
-				{
-					AdvancedBird advanced = (AdvancedBird) currentBird.getValue();
-					advanced.setThresholds(maxAdvancedBird.getHiddenTopBias(), maxAdvancedBird.getHiddenBottomBias(), maxAdvancedBird.getHiddenTopBias2(), 
-														 maxAdvancedBird.getHiddenBottomBias2(), maxAdvancedBird.getOutputThreshold(), maxAdvancedBird.getOutputTopBias(),
-														 maxAdvancedBird.getOutputBottomBias());
-				}
-				else
-				{
-					currentBird.getValue().setThresholds(maxBird.getHiddenTopBias(), maxBird.getHiddenBottomBias(), maxBird.getOutputThreshold());
-				}
-				 //:)
-				
-				currentBird.getValue().resetFitness();
-			}
-			birdsAlive = birdMap.size();
-			maxFitness = 0;
-			panel.reset();
+			reset();
 		} 
 	}
 	
@@ -368,6 +348,55 @@ public class Controller
 		this.isLoading = true;
 	}
 	
+	public double passPower(int key)
+	{
+		AdvancedBird bird = (AdvancedBird) birdMap.get(key);
+		return bird.getPower();
+	}
+	
+	public int passWeight(int key)
+	{
+		AdvancedBird bird = (AdvancedBird) birdMap.get(key);
+		return bird.getWeight();
+	}
+	
+	public void reset()
+	{
+		this.isLoading = false;
+		if (isAdvancedBirds)
+		{
+			mainPanel.changeHistory("" + maxFitness, maxAdvancedBird.getWeight(), maxAdvancedBird.getPower());
+		}
+		else
+		{
+			mainPanel.changeHistory("" + maxFitness, 0, 0);
+		}
+		
+		deadKeys = new int[birdMap.size()];
+		for (Map.Entry<Integer, Bird> currentBird : birdMap.entrySet())
+		{
+			currentBird.getValue().setMutationRate(mutationRate);
+			if (isAdvancedBirds)
+			{
+				AdvancedBird advanced = (AdvancedBird) currentBird.getValue();
+				advanced.setThresholds(maxAdvancedBird.getHiddenTopBias(), maxAdvancedBird.getHiddenBottomBias(), maxAdvancedBird.getHiddenTopBias2(), 
+													 maxAdvancedBird.getHiddenBottomBias2(), maxAdvancedBird.getOutputThreshold(), maxAdvancedBird.getOutputTopBias(),
+													 maxAdvancedBird.getOutputBottomBias(), maxAdvancedBird.getWeight(), maxAdvancedBird.getPower(), saveBestBird);
+				saveBestBird = false;
+			}
+			else
+			{
+				currentBird.getValue().setThresholds(maxBird.getHiddenTopBias(), maxBird.getHiddenBottomBias(), maxBird.getOutputThreshold());
+			}
+			 //:)
+			
+			currentBird.getValue().resetFitness();
+		}
+		birdsAlive = birdMap.size();
+		maxFitness = 0;
+		panel.reset();
+	}
+	
 	//
 	// Getters
 	//
@@ -380,6 +409,11 @@ public class Controller
 	public HashMap<Integer, Bird> getBirdMap()
 	{
 		return this.birdMap;
+	}
+	
+	public boolean getIsAdvancedBirds()
+	{
+		return this.isAdvancedBirds;
 	}
 	
 	

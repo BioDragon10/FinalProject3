@@ -80,6 +80,11 @@ public class MainPanel extends JPanel
 	private double score;
 	
 	/**
+	 * 
+	 */
+	private JLabel roundLabel;
+	
+	/**
 	 * Initializes all the components of the panel and sets up the layout and such.
 	 * @param app
 	 * 		A parameter that holds a reference to the Controller.
@@ -93,6 +98,7 @@ public class MainPanel extends JPanel
 		this.scoreLabel = new JLabel("Score: " + score);
 		this.aliveLabel = new JLabel("Birds Alive: 0");
 		
+		
 		this.fitnessPane = new JScrollPane();
 		
 		this.fitnessText = new JTextArea(20, 0);
@@ -103,6 +109,9 @@ public class MainPanel extends JPanel
 		
 		this.loadButton = new JButton("Load");
 		this.generationNum = 0;
+		
+		this.roundLabel = new JLabel("Round: 0");
+		
 		
 		
 		
@@ -133,11 +142,12 @@ public class MainPanel extends JPanel
 	{
 		this.setLayout(layout);
 		this.add(flapCanvas);
-		this.add(scoreLabel);
+		//this.add(scoreLabel);
 		this.add(aliveLabel);
 		this.add(fitnessPane);
 		this.add(saveButton);
 		this.add(loadButton);
+		this.add(roundLabel);
 	}
 	
 	/**
@@ -154,15 +164,14 @@ public class MainPanel extends JPanel
 	 */
 	private void setupLayout()
 	{
-		layout.putConstraint(SpringLayout.NORTH, aliveLabel, 10, SpringLayout.SOUTH, scoreLabel);
+		layout.putConstraint(SpringLayout.NORTH, aliveLabel, 10, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.WEST, aliveLabel, 10, SpringLayout.EAST, flapCanvas);
 		layout.putConstraint(SpringLayout.NORTH, flapCanvas, 0, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.WEST, flapCanvas, 0, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.SOUTH, flapCanvas, 0, SpringLayout.SOUTH, this);
 		layout.putConstraint(SpringLayout.EAST, flapCanvas, -200, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.NORTH, scoreLabel, 10, SpringLayout.NORTH, this);
-		layout.putConstraint(SpringLayout.WEST, scoreLabel, 10, SpringLayout.EAST, flapCanvas);
-		layout.putConstraint(SpringLayout.NORTH, fitnessPane, 10, SpringLayout.SOUTH, aliveLabel);
+		//layout.putConstraint(SpringLayout.NORTH, scoreLabel, 10, SpringLayout.NORTH, this);
+		//layout.putConstraint(SpringLayout.WEST, scoreLabel, 10, SpringLayout.EAST, flapCanvas);
 		layout.putConstraint(SpringLayout.WEST, fitnessPane, 10, SpringLayout.EAST, flapCanvas);
 		layout.putConstraint(SpringLayout.EAST, fitnessPane, -10, SpringLayout.EAST, this);
 		layout.putConstraint(SpringLayout.SOUTH, fitnessPane, -10, SpringLayout.NORTH, saveButton);
@@ -170,6 +179,9 @@ public class MainPanel extends JPanel
 		layout.putConstraint(SpringLayout.SOUTH, saveButton, -10, SpringLayout.SOUTH, this);
 		layout.putConstraint(SpringLayout.SOUTH, loadButton, -10, SpringLayout.SOUTH, this);
 		layout.putConstraint(SpringLayout.EAST, loadButton, -10, SpringLayout.EAST, this);
+		layout.putConstraint(SpringLayout.NORTH, fitnessPane, 10, SpringLayout.SOUTH, roundLabel);
+		layout.putConstraint(SpringLayout.NORTH, roundLabel, 10, SpringLayout.SOUTH, aliveLabel);
+		layout.putConstraint(SpringLayout.WEST, roundLabel, 10, SpringLayout.EAST, flapCanvas);
 	}
 	
 	/**
@@ -199,12 +211,17 @@ public class MainPanel extends JPanel
 		aliveLabel.setText("Birds Alive: " + bird);
 	}
 	
+	public void updateRound(int round)
+	{
+		roundLabel.setText("Round: " + round);
+	}
+	
 	/**
 	 * Adds to the history.
 	 * @param newest
 	 * 		Adds the newest history to be added.
 	 */
-	public void changeHistory(String newest)
+	public void changeHistory(String newest, int weight, double power)
 	{
 		generationNum += 1;
 		if (fitnessHistory.size() == 0)
@@ -215,6 +232,9 @@ public class MainPanel extends JPanel
 		{
 			fitnessHistory.add("\nGeneration " + (generationNum) + ": " + newest);
 		}
+		
+		fitnessHistory.add("\nWeight: " + weight);
+		fitnessHistory.add("\nPower: " + power);
 		
 		fitnessText.setText(null);
 		for (int index = 0; index < fitnessHistory.size(); index++)

@@ -105,23 +105,69 @@ public class AdvancedBird extends Bird
 	 * @param outBot
 	 * 				bias for the output node's bottom value.
 	 */
-	public void setThresholds(double hidTop1, double hidBot1, double hidTop2, double hidBot2, double outThres, double outTop, double outBot)
+	public void setThresholds(double hidTop1, double hidBot1, double hidTop2, double hidBot2,
+							  double outThres, double outTop, double outBot, int weight, double power, 
+							  boolean oldBird)
 	{
-		int coinFlip = coinFlip() ? -1 : 1;
-		double mutationBias = (Math.random() / mutationRate);
-		this.hiddenTopBias = (hidTop1 + (mutationBias * coinFlip));
-		this.hiddenBottomBias = (hidBot1 + (mutationBias * coinFlip * -1));
-		this.hiddenTopBias2 = (hidTop2 + (mutationBias * coinFlip));
-		this.hiddenBottomBias2 = (hidBot2 + (mutationBias * coinFlip * -1));
-		int coinFlip2 = coinFlip() ? 1 : 2;
-		this.hiddenOperation = coinFlip2;
-		int coinFlip3 = coinFlip() ? 1 : 2;
-		this.hiddenOperation2 = coinFlip3;
-		this.outputThreshold = outThres + mutationRate;
-		int coinFlip4 = coinFlip() ? 1 : 2;
-		this.outputOperation = coinFlip4;
-		this.outputBottomBias = (outBot + (mutationBias * coinFlip * -1));
-		this.outputTopBias = (outTop + (mutationBias * coinFlip));
+		if (oldBird == false)
+		{
+			
+			int coinFlip = coinFlip() ? -1 : 1;
+			double mutationBias = (Math.random() / mutationRate);
+			this.hiddenTopBias = (hidTop1 + (mutationBias * coinFlip));
+			this.hiddenBottomBias = (hidBot1 + (mutationBias * coinFlip * -1));
+			this.hiddenTopBias2 = (hidTop2 + (mutationBias * coinFlip));
+			this.hiddenBottomBias2 = (hidBot2 + (mutationBias * coinFlip * -1));
+			int coinFlip2 = coinFlip() ? 1 : 2;
+			this.hiddenOperation = coinFlip2;
+			int coinFlip3 = coinFlip() ? 1 : 2;
+			this.hiddenOperation2 = coinFlip3;
+			this.outputThreshold = outThres + mutationRate;
+			int coinFlip4 = coinFlip() ? 1 : 2;
+			this.outputOperation = coinFlip4;
+			this.outputBottomBias = (outBot + (mutationBias * coinFlip * -1));
+			this.outputTopBias = (outTop + (mutationBias * coinFlip));
+			
+			int coinFlip5 = coinFlip() ? -1 : 1;
+			this.weight = weight + coinFlip5 * ((int)(Math.random() * 5) + 1);
+			if (this.weight > 20)
+			{
+				this.weight = 20;
+			}
+			
+			if (this.weight < 1)
+			{
+				this.weight = 1;
+			}
+			
+			int coinFlip6 = coinFlip() ? -1 : 1;
+			this.power = power + coinFlip6 * (Math.random());
+			
+			if (this.power <= 0.0)
+			{
+				this.power = 0.1;
+			}
+			
+			if (this.power > 2.0)
+			{
+				this.power = 2.0;
+			}
+		}
+		else
+		{
+			this.hiddenTopBias = hidTop1;
+			this.hiddenBottomBias = hidBot1;
+			this.hiddenTopBias2 = hidTop2;
+			this.hiddenBottomBias2 = hidBot2;
+			this.outputThreshold = outThres;
+			this.outputTopBias = outTop;
+			this.outputBottomBias = outBot;
+			this.weight = weight;
+			this.power = power;
+			
+		}
+		
+		
 	}
 	
 	/**
@@ -227,5 +273,10 @@ public class AdvancedBird extends Bird
 	public int getWeight()
 	{
 		return this.weight;
+	}
+	
+	public double getPower()
+	{
+		return this.power;
 	}
 }

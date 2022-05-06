@@ -82,6 +82,11 @@ public class FlapPanel extends JPanel
 	 * Holds a value for the pipe speed
 	 */
 	private int pipeSpeed;
+	
+	/**
+	 * Holds the current round
+	 */
+	private int round;
 
 	/**
 	 * Sets up the FlapPanel and the pipes, as well as the birdMap with its ColorMap.
@@ -106,6 +111,8 @@ public class FlapPanel extends JPanel
 		this.pipeColor = Color.green;
 		
 		this.pipeSpeed = -10;
+		
+		this.round = 0;
 	
 		setupBirdMap();
 		setupColorMap();
@@ -188,7 +195,7 @@ public class FlapPanel extends JPanel
 	{
 		if (birdMap.get(key) != null)
 		{
-			birdMap.get(key).translate(0, -30);
+			birdMap.get(key).translate(0, (int)(-30 * app.passPower(key)));
 			repaint();
 		}
 		 
@@ -314,23 +321,42 @@ public class FlapPanel extends JPanel
 	 */
 	public void move()
 	{
-		
-		for (Map.Entry<Integer, Polygon> currentBird : birdMap.entrySet())
+		panel.updateRound(round);
+		if (app.getIsAdvancedBirds())
 		{
-			if (currentBird.getValue() != null)
+			for (int index = 0; index < birdMap.size(); index++)
 			{
-				currentBird.getValue().translate(0, 14);
-				app.fitness(currentBird.getKey());
+				if (birdMap.get(index) != null)
+				{
+					Polygon bird = birdMap.get(index);
+					bird.translate(0, 14 + app.passWeight(index));
+					app.fitness(index);
+				}
 			}
 		}
+		else
+		{
+			for (Map.Entry<Integer, Polygon> currentBird : birdMap.entrySet())
+			{
+				if (currentBird.getValue() != null)
+				{
+					currentBird.getValue().translate(0, 14);
+					app.fitness(currentBird.getKey());
+				}
+			}
+		}
+		
+		
+		
 		
 		
 		topPipe.translate(pipeSpeed, 0);
 		bottomPipe.translate(pipeSpeed, 0);
 		
-		
+		boolean adjust = true;
 		for(int current : topPipe.xpoints)
 		{
+			
 			if (current <= 0 )
 			{
 				size = Math.random() + 1;
@@ -355,6 +381,12 @@ public class FlapPanel extends JPanel
 				bottomPipe = drawBottomPipe();
 				pipeLayout = (int) (Math.random() * 5 + 1);
 				panel.addScore();
+				if (adjust)
+				{
+					round++;
+				}
+				adjust = false;
+				
 				
 			}
 		}
@@ -388,7 +420,11 @@ public class FlapPanel extends JPanel
 		
 		
 		
-		
+		if (round == 10)
+		{
+			app.reset();
+			
+		}
 		repaint();
 	}
 	
@@ -463,7 +499,8 @@ public class FlapPanel extends JPanel
 	 */
 	public void reset()
 	{
-		pipeLayout = 1;
+		round = 0;
+		pipeLayout = (int) (Math.random() * 5 + 1);
 		
 		this.panel.resetScore();
 		
@@ -517,6 +554,7 @@ public class FlapPanel extends JPanel
 		}
 		
 	}
+	
 
 	
 }
