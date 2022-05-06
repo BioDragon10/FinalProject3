@@ -321,6 +321,12 @@ public class FlapPanel extends JPanel
 		topPipe.translate(-10, 0);
 		bottomPipe.translate(-10, 0);
 		
+		boolean coin = (int)(Math.random() * 2) == 1 ? true : false;
+		
+		if(coin)
+		{
+			
+		}
 		for(int current : topPipe.xpoints)
 		{
 			if (current <= 0 )
