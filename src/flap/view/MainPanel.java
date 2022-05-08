@@ -233,8 +233,8 @@ public class MainPanel extends JPanel
 			fitnessHistory.add("\nGeneration " + (generationNum) + ": " + newest);
 		}
 		
-		fitnessHistory.add("\nWeight: " + weight);
-		fitnessHistory.add("\nPower: " + power);
+		//fitnessHistory.add("\nWeight: " + weight);
+		//fitnessHistory.add("\nPower: " + power);
 		
 		fitnessText.setText(null);
 		for (int index = 0; index < fitnessHistory.size(); index++)

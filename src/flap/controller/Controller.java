@@ -393,7 +393,7 @@ public class Controller
 			currentBird.getValue().resetFitness();
 		}
 		birdsAlive = birdMap.size();
-		maxFitness = 0;
+		//maxFitness = 0;
 		panel.reset();
 	}
 	

@@ -195,7 +195,7 @@ public class FlapPanel extends JPanel
 	{
 		if (birdMap.get(key) != null)
 		{
-			birdMap.get(key).translate(0, (int)(-30 * app.passPower(key)));
+			birdMap.get(key).translate(0, (int)(-35));
 			repaint();
 		}
 		 
@@ -329,7 +329,7 @@ public class FlapPanel extends JPanel
 				if (birdMap.get(index) != null)
 				{
 					Polygon bird = birdMap.get(index);
-					bird.translate(0, 14 + app.passWeight(index));
+					bird.translate(0, 14);
 					app.fitness(index);
 				}
 			}
@@ -373,9 +373,9 @@ public class FlapPanel extends JPanel
 				{
 					pipeColor = Color.red;
 				}
-				size += .5;
+				size += 1;
 				
-				pipeSpeed = ((int)(Math.random() * 20) + 10) * -1;
+				pipeSpeed = ((int)(Math.random() * 20) + 15) * -1;
 				System.out.println(pipeSpeed);
 				topPipe = drawTopPipe();
 				bottomPipe = drawBottomPipe();
