@@ -80,7 +80,7 @@ public class MainPanel extends JPanel
 	private double score;
 	
 	/**
-	 * 
+	 * Holds the round value.
 	 */
 	private JLabel roundLabel;
 	
@@ -211,6 +211,11 @@ public class MainPanel extends JPanel
 		aliveLabel.setText("Birds Alive: " + bird);
 	}
 	
+	/**
+	 * Updates the round count.
+	 * @param round
+	 * 		The round that is passed in.
+	 */
 	public void updateRound(int round)
 	{
 		roundLabel.setText("Round: " + round);
@@ -260,6 +265,9 @@ public class MainPanel extends JPanel
 		fitnessHistory.add("\nOutput Threshold was set to: " + out);
 	}
 	
+	//
+	// Getters
+	//
 	public FlapPanel getFlapCanvas()
 	{
 		return flapCanvas;
