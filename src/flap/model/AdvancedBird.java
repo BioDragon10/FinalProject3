@@ -41,12 +41,12 @@ public class AdvancedBird extends Bird
 	private double outputBottomBias;
 	
 	/**
-	 * 
+	 * Holds the weight of the bird (unimplemented)
 	 */
 	private int weight;
 	
 	/**
-	 * 
+	 * Holds the power of the bird (unimplmented)
 	 */
 	private double power;
 	

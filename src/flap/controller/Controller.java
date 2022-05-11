@@ -348,18 +348,9 @@ public class Controller
 		this.isLoading = true;
 	}
 	
-	public double passPower(int key)
-	{
-		AdvancedBird bird = (AdvancedBird) birdMap.get(key);
-		return bird.getPower();
-	}
-	
-	public int passWeight(int key)
-	{
-		AdvancedBird bird = (AdvancedBird) birdMap.get(key);
-		return bird.getWeight();
-	}
-	
+	/**
+	 * Resets everything and adds stuff to the mainPanel.
+	 */
 	public void reset()
 	{
 		this.isLoading = false;
